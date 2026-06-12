@@ -1,0 +1,124 @@
+/* ==========================================================================
+   SERVIÇOS - ESTILOS EXCLUSIVOS DO COMPONENTE
+   ========================================================================== */
+#servicos {
+    background-color: var(--escura);
+    width: 100%;
+}
+
+.tabela-wrapper {
+    overflow-x: auto; /* Garante segurança extra se a tela for muito pequena */
+    margin: 0 auto;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.tabela-precos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--cinza-card);
+    text-align: left;
+    color: var(--texto);
+}
+
+.tabela-precos thead {
+    background-color: #111111;
+    border-bottom: 3px solid var(--primaria);
+}
+
+.tabela-precos th {
+    font-family: 'Oswald', sans-serif;
+    padding: 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primaria);
+}
+
+.tabela-precos td {
+    padding: 20px;
+    border-bottom: 1px solid #222222;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+/* Destaque para a coluna de preços */
+.tabela-precos tbody tr td:last-child {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color: var(--primaria);
+    font-size: 1.1rem;
+}
+
+/* Efeito de passar o mouse nas linhas da tabela */
+.tabela-precos tbody tr {
+    transition: var(--transicao);
+}
+
+.tabela-precos tbody tr:hover {
+    background-color: #1c1c1c;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE - TRANSFORMA A TABELA EM CARDS NO CELULAR
+   ========================================================================== */
+@media (max-width: 768px) {
+    .tabela-precos, 
+    .tabela-precos thead, 
+    .tabela-precos tbody, 
+    .tabela-precos th, 
+    .tabela-precos td, 
+    .tabela-precos tr {
+        display: block; /* Força tudo a virar bloco empilhado */
+    }
+
+    /* Esconde o cabeçalho original da tabela */
+    .tabela-precos thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .tabela-precos tbody tr {
+        margin-bottom: 20px;
+        border: 1px solid #222;
+        border-radius: 6px;
+        background-color: #121212;
+        padding: 10px;
+    }
+
+    .tabela-precos td {
+        border: none;
+        border-bottom: 1px solid #1c1c1c;
+        position: relative;
+        padding-left: 50%; /* Abre espaço na esquerda para o título */
+        text-align: right; /* Joga o conteúdo real para a direita */
+        font-size: 0.95rem;
+    }
+
+    .tabela-precos td:last-child {
+        border-bottom: none;
+    }
+
+    /* Injeta o nome da coluna usando o atributo data-label do HTML */
+    .tabela-precos td::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-family: 'Oswald', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--primaria);
+    }
+    
+    /* Ajuste específico para o preço no mobile */
+    .tabela-precos tbody tr td:last-child {
+        font-size: 1.2rem;
+    }
+}

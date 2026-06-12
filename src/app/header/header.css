@@ -1,0 +1,167 @@
+/* ==========================================================================
+   HEADER - ESTILOS EXCLUSIVOS DO COMPONENTE
+   ========================================================================== */
+header {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--primaria);
+    transition: transform 0.8s ease-in-out;
+}
+
+header.header-escondido {
+    transform: translateY(-100%);
+}
+
+header:hover {
+    border-bottom-color: #fff;
+    box-shadow: 0 4px 20px rgba(188, 148, 92, 0.3);
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo img { 
+    height: 90px; 
+    transition: var(--transicao); 
+}
+
+.logo img:hover { 
+    transform: scale(1.05); 
+}
+
+nav ul { 
+    display: flex; 
+    list-style: none; 
+    gap: 25px; 
+    margin-top: 15px; 
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a {
+    color: var(--texto);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: var(--transicao);
+    text-transform: uppercase;
+}
+
+nav ul li a:hover { 
+    color: var(--primaria); 
+}
+
+.nav-btn-agendar {
+    background-color: var(--primaria);
+    color: #0a0a0a !important;
+    font-weight: bold;
+    padding: 10px 18px !important;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.nav-btn-agendar:hover {
+    background-color: #ffffff !important;
+    color: #0a0a0a !important;
+    box-shadow: 0 0 15px rgba(188, 148, 92, 0.4);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primaria);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE EXCLUSIVA DO HEADER (MOBILE & DESKTOP)
+   ========================================================================== */
+
+/* Telas Médias e Pequenas (Mobile/Tablet) */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .logo {
+        flex: 1;
+        text-align: center;
+    }
+
+    .logo img { max-height: 60px; }
+    nav ul { gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+    .menu-toggle {
+        display: block;
+        z-index: 1001;
+        width: 12%;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        border-left: 2px solid var(--primaria);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        margin: 25px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 1.4rem;
+    }
+
+    .nav-btn-agendar {
+        display: inline-block;
+        width: 80%;
+        padding: 15px 0 !important;
+        font-size: 1.1rem !important;
+    }
+}
+
+/* Telas Grandes (Desktop) */
+@media (min-width: 1024px) {
+    nav { 
+        flex-direction: row; 
+        justify-content: space-between; 
+    }
+    nav ul { 
+        margin-top: 0; 
+    }
+    .logo img { 
+        height: 90px; 
+    }
+}

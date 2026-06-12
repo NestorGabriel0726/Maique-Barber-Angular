@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Oswald:wght@500;700&display=swap');
+
+:root {
+    --primaria: #bc945c;
+    --escura: #0a0a0a;
+    --cinza-card: #161616;
+    --cinza-ocupado: #222222;
+    --texto: #ffffff;
+    --texto-mutado: #888888;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.topo-voltar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.topo-voltar .btn-voltar {
+    position: static; /* Remove o posicionamento absoluto antigo */
+    color: var(--texto-mutado);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.topo-voltar .btn-voltar:hover {
+    color: var(--primaria);
+}
+
+/* Container Principal Adaptado para o Angular */
+.container-agenda {
+    width: 100%;
+    max-width: 800px;
+    padding: 30px 20px;
+    margin: 0 auto; /* Centraliza o conteúdo na página */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cabecalho-agenda {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.cabecalho-agenda h2 {
+    font-family: 'Oswald', sans-serif;
+    color: var(--primaria);
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.cabecalho-agenda p { color: var(--texto-mutado); font-size: 0.9rem; margin-bottom: 20px; }
+
+/* Seletor de Data */
+.seletor-data {
+    display: inline-block;
+    background: var(--cinza-card);
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    width: 100%;
+    max-width: 320px;
+}
+
+.seletor-data label {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    color: var(--primaria);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.seletor-data input {
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    color-scheme: dark; 
+}
+
+/* Grid de Horários */
+.grid-horarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Estilo Adaptado dos Botões de Horário Reativos */
+.btn-horario {
+    background-color: transparent;
+    border: 2px solid var(--primaria);
+    color: var(--primaria);
+    border-radius: 8px;
+    padding: 20px 10px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-horario:hover {
+    background-color: var(--primaria);
+    color: var(--escura);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(188, 148, 92, 0.3);
+}
+
+/* Modal de Reserva */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: var(--cinza-card);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    border-top: 4px solid var(--primaria);
+    position: relative;
+    animation: scaleUp 0.3s ease forwards;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.btn-fechar-modal {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: none; border: none;
+    color: #fff; font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    font-family: 'Oswald', sans-serif;
+    color: var(--primaria);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.horario-destaque {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+    background: #111;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed var(--primaria);
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--texto-mutado); margin-bottom: 5px; text-transform: uppercase; }
+.form-group input, .form-group select {
+    width: 100%; padding: 12px; border-radius: 6px;
+    background: #111; border: 1px solid #333; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--primaria); outline: none; }
+
+.btn-confirmar {
+    width: 100%; padding: 15px;
+    background: var(--primaria); color: #000;
+    border: none; border-radius: 6px;
+    font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: bold; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s;
+}
+.btn-confirmar:hover { background: #a37f4c; color: #fff; }
+
+/* Mensagem de estado vazio */
+.msg-vazia { text-align: center; color: var(--texto-mutado); font-style: italic; grid-column: 1 / -1; padding: 20px; }
+
+/* Estilos do Modal de Sucesso */
+.text-center {
+    text-align: center;
+}
+
+.icone-sucesso {
+    font-size: 4.5rem;
+    color: var(--primaria);
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+.texto-sucesso {
+    margin-bottom: 25px;
+    color: #cccccc;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.texto-sucesso strong {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.seletor-data label i {
+    margin-right: 8px;
+}
+
+/* ==========================================================================
+   1. MOBILE EXTRA PEQUENO (Até 360px)
+   Aparelhos antigos ou compactos (Ex: iPhone SE antigo, Moto G antigos)
+   ========================================================================== */
+@media (max-width: 360px) {
+    .cabecalho-agenda h2 {
+        font-size: 1.4rem; /* Diminui o título para não quebrar em duas linhas */
+    }
+    
+    /* Reduz o grid para 2 colunas para os botões não ficarem esmagados */
+    .grid-horarios {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    
+    .btn-horario {
+        padding: 10px 5px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .container-agenda {
+        padding: 10px;
+    }
+}
+
+/* ==========================================================================
+   2. SMARTPHONES PADRÃO (Até 480px)
+   Cobre a esmagadora maioria dos celulares modernos em modo retrato
+   (Ex: iPhones numeração base/Pro, Samsung Galaxy S e linha A, Xiaomi)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .container-agenda {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    /* Grid com 3 colunas de horários fica perfeito para essa largura */
+    .grid-horarios {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .seletor-data input {
+        width: 100%; /* O input de data passa a ocupar a largura toda no celular */
+        font-size: 1rem;
+    }
+    
+    /* Ajuste para os modais de confirmação ocuparem quase toda a tela no mobile */
+    .modal-conteudo {
+        width: 90% !important;
+        padding: 20px !important;
+    }
+}
+
+/* ==========================================================================
+   3. TABLETS E CELULARES EM MODO PAISAGEM (De 481px até 768px)
+   (Ex: iPad Mini, iPads padrão, tablets Android e celulares deitados)
+   ========================================================================== */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container-agenda {
+        width: 85%;
+        padding: 25px;
+    }
+
+    /* 4 colunas de horários funcionam muito bem aqui */
+    .grid-horarios {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+}
+
+/* ==========================================================================
+   4. NOTEBOOKS E MONITORES PADRÃO (De 769px até 1200px)
+   (Ex: MacBooks, Notebooks comuns, telas de computadores compactas)
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .container-agenda {
+        max-width: 800px; /* Limita a largura para a agenda não ficar esticada demais */
+        margin: 40px auto;
+    }
+
+    /* 5 colunas de horários igual à imagem que você me mandou */
+    .grid-horarios {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+    }
+}
+
+/* ==========================================================================
+   5. MONITORES GRANDES / ULTRA-WIDE (Acima de 1201px)
+   Evita que o layout se espalhe descontroladamente em telas gigantes
+   ========================================================================== */
+@media (min-width: 1201px) {
+    .container-agenda {
+        max-width: 950px; /* Mantém a caixinha centralizada e elegante no meio do monitor */
+        margin: 60px auto;
+        padding: 40px;
+    }
+
+    /* Pode manter em 5 colunas ou expandir para 6 se tiver muitos horários */
+    .grid-horarios {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+    }
+}

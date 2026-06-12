@@ -1,0 +1,25 @@
+<main class="container-agenda">
+  <div class="topo-voltar">
+    <a routerLink="/" class="btn-voltar" title="Voltar para a Home">
+      <i class="fa-solid fa-arrow-left"></i> Voltar para o site
+    </a>
+  </div>
+
+  <div class="cabecalho-agenda">
+    <h2><i class="fa-solid fa-calendar-check"></i> Escolha seu Horário</h2>
+    <p>Selecione a data para ver a disponibilidade atual.</p>
+    
+    <div class="seletor-data">
+      <label for="input-data"><i class="fa-regular fa-calendar"></i> Data do Agendamento:</label>
+      <input type="date" id="input-data" [(ngModel)]="dataSelecionada" required>
+    </div>
+  </div>
+
+  <div id="grid-horarios" class="grid-horarios">
+    @for (horario of horariosDisponiveis; track horario) {
+      <button class="btn-horario" (click)="selecionarHorario(horario)">
+        {{ horario }}
+      </button>
+    }
+  </div>
+</main>

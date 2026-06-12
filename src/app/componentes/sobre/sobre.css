@@ -1,0 +1,76 @@
+/* ==========================================================================
+   SOBRE - ESTILOS EXCLUSIVOS DO COMPONENTE
+   ========================================================================== */
+#sobre {
+    background-color: var(--escura);
+    width: 100%;
+}
+
+.sobre-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap; /* Garante que os cards quebrem de linha se necessário */
+    margin-top: 20px;
+}
+
+.card {
+    background-color: var(--cinza-card);
+    padding: 40px 30px;
+    border-radius: 8px;
+    flex: 1; /* Faz com que todos os cards tenham exatamente o mesmo tamanho */
+    min-width: 280px; /* Impede que o card esmague demais antes de quebrar de linha */
+    text-align: center;
+    border: 1px solid #222222;
+    transition: var(--transicao);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeito de elevação e brilho ao passar o mouse */
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primaria);
+    box-shadow: 0 15px 30px rgba(188, 148, 92, 0.2);
+}
+
+.card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    color: var(--primaria);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espaço entre o ícone do Font Awesome e o texto */
+}
+
+.card h3 i {
+    font-size: 1.4rem;
+    color: #ffffff; /* Deixa o ícone branco para contrastar com o título dourado */
+    transition: var(--transicao);
+}
+
+.card:hover h3 i {
+    color: var(--primaria); /* O ícone acende em dourado quando passa o mouse no card */
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE - AJUSTES PARA TELAS MENORES
+   ========================================================================== */
+@media (max-width: 900px) {
+    .sobre-container {
+        gap: 20px;
+    }
+    
+    .card {
+        padding: 30px 20px;
+    }
+}
