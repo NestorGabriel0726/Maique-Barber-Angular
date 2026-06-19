@@ -7,7 +7,7 @@
     align-items: center;
     text-align: center;
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('/imgs/galeria/corte1.jpg.jpeg') no-repeat center center; /* Caminho corrigido para a pasta public */
+                url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1470') no-repeat center center;
     background-size: contain;
     background-color: #000;
     padding: 120px 20px;

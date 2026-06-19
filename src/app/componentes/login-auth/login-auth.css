@@ -1,0 +1,182 @@
+.auth-container {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    background-color: #111111; /* Preto escuro combinando com a logo */
+    border: 1px solid #222222;
+    border-top: 4px solid #bfa15f; /* Detalhe dourado clássico */
+    width: 100%;
+    max-width: 430px;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Quando vira cadastro, ele ganha um pouco mais de altura suavemente */
+.card-cadastro {
+    max-width: 460px;
+    padding: 35px 30px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-header h2 {
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: #888888;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    color: #dddddd;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.form-group label i {
+    color: #bfa15f;
+    margin-right: 5px;
+}
+
+.form-group input {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #bfa15f;
+}
+
+.btn-auth-principal {
+    background-color: #bfa15f;
+    color: #000000;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-auth-principal:hover:not(:disabled) {
+    background-color: #a38548;
+}
+
+.btn-auth-principal:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.divisor {
+    text-align: center;
+    position: relative;
+    margin: 20px 0;
+}
+
+.divisor::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #222222;
+    z-index: 1;
+}
+
+.divisor span {
+    background-color: #111111;
+    padding: 0 10px;
+    color: #666666;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-google {
+    background-color: #ffffff;
+    color: #000000;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-google:hover {
+    background-color: #e5e5e5;
+}
+
+.btn-google img {
+    width: 18px;
+    height: 18px;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #888888;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #bfa15f;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #ffffff;
+}
+
+/* Responsividade do card */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+    }
+}

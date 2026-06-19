@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router'; // Certifique-se de ter esses 3
-import { CommonModule } from '@angular/common'; // Adicione o CommonModule por garantia
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router'; 
+import { CommonModule } from '@angular/common'; 
 
-// Seus imports das seções
+// Os imports das seções
 import { Header } from "./header/header";
 import { Home } from "./componentes/home/home";
 import { Servicos } from './componentes/servicos/servicos';
@@ -14,7 +14,7 @@ import { Footer } from "./footer/footer";
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Garanta que está como standalone
+  standalone: true, 
   imports: [
     CommonModule, // Adicionado para garantir o funcionamento do @if
     RouterOutlet, 
@@ -32,16 +32,25 @@ import { Footer } from "./footer/footer";
 })
 export class App {
   isNaAgenda: boolean = false;
+  isNoDashboard: boolean = false;
 
   constructor(private router: Router) {
-    // Escuta as mudanças de rota de forma segura
+    // Escuta as mudanças de rota 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Se a rota ativa for /agendamento, ativa a trava
-        this.isNaAgenda = event.url.includes('agendamento');
+  if (event instanceof NavigationEnd) {
+    // Se a URL contiver qualquer uma das rotas internas, ativa a trava para esconder a Home
+    this.isNaAgenda = event.url.includes('agendamento') || 
+                      event.url.includes('login') || 
+                      event.url.includes('dashboard');
+    
+    this.isNoDashboard = event.url.includes('dashboard');
+    
+    if (typeof window !== 'undefined') {
 
-        window.scrollTo(0, 0);
-      }
-    });
+      window.scrollTo(0, 0);
+
+    }
+  }
+  });
   }
 }

@@ -1,4 +1,10 @@
-<app-header></app-header>
+@if (!isNoDashboard) {
+
+  <app-header></app-header>
+
+}
+
+
 
 <main>
 
@@ -15,4 +21,9 @@
 
 </main>
 
-<app-footer></app-footer>
+@if (!isNoDashboard) {
+
+  <app-footer></app-footer>
+
+}
+
