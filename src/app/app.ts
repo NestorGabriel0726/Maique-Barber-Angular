@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router'; 
+import { RouterOutlet } from '@angular/router'; 
 import { CommonModule } from '@angular/common'; 
 
 // Os imports das seções
@@ -16,7 +16,7 @@ import { Footer } from "./footer/footer";
   selector: 'app-root',
   standalone: true, 
   imports: [
-    CommonModule, // Adicionado para garantir o funcionamento do @if
+    CommonModule,
     RouterOutlet, 
     Header, 
     Footer, 
@@ -31,26 +31,5 @@ import { Footer } from "./footer/footer";
   styleUrl: './app.css'
 })
 export class App {
-  isNaAgenda: boolean = false;
-  isNoDashboard: boolean = false;
-
-  constructor(private router: Router) {
-    // Escuta as mudanças de rota 
-    this.router.events.subscribe((event) => {
-  if (event instanceof NavigationEnd) {
-    // Se a URL contiver qualquer uma das rotas internas, ativa a trava para esconder a Home
-    this.isNaAgenda = event.url.includes('agendamento') || 
-                      event.url.includes('login') || 
-                      event.url.includes('dashboard');
-    
-    this.isNoDashboard = event.url.includes('dashboard');
-    
-    if (typeof window !== 'undefined') {
-
-      window.scrollTo(0, 0);
-
-    }
-  }
-  });
-  }
+  
 }

@@ -1,124 +1,107 @@
 /* ==========================================================================
-   SERVIÇOS - ESTILOS EXCLUSIVOS DO COMPONENTE
+   SEÇÃO SERVIÇOS - ESTILOS EXCLUSIVOS DO COMPONENTE
    ========================================================================== */
-#servicos {
-    background-color: var(--escura);
-    width: 100%;
+.secao-servicos {
+    background-color: #0d0d0d; /* Fundo escuro clássico */
+    padding: 80px 20px;
+    color: #ffffff;
 }
 
-.tabela-wrapper {
-    overflow-x: auto; /* Garante segurança extra se a tela for muito pequena */
-    margin: 0 auto;
-    max-width: 1000px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+.servicos-header {
+    text-align: center;
+    margin-bottom: 50px;
 }
 
-.tabela-precos {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--cinza-card);
-    text-align: left;
-    color: var(--texto);
-}
-
-.tabela-precos thead {
-    background-color: #111111;
-    border-bottom: 3px solid var(--primaria);
-}
-
-.tabela-precos th {
-    font-family: 'Oswald', sans-serif;
-    padding: 20px;
-    font-size: 1.2rem;
+.servicos-header h2 {
+    font-size: 2.5rem;
+    color: var(--primaria, #bc945c); /* Usa a cor dourada principal */
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--primaria);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
 }
 
-.tabela-precos td {
-    padding: 20px;
-    border-bottom: 1px solid #222222;
+.servicos-header .subtitulo {
+    color: #888888;
     font-size: 1rem;
-    vertical-align: middle;
 }
 
-/* Destaque para a coluna de preços */
-.tabela-precos tbody tr td:last-child {
-    font-family: 'Oswald', sans-serif;
-    font-weight: bold;
-    color: var(--primaria);
-    font-size: 1.1rem;
+/* Container organizador dos cards */
+.servicos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Efeito de passar o mouse nas linhas da tabela */
-.tabela-precos tbody tr {
-    transition: var(--transicao);
+/* Estilo individual de cada Card */
+.servico-card {
+    background-color: #141414;
+    border: 1px solid #222222;
+    border-radius: 6px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tabela-precos tbody tr:hover {
-    background-color: #1c1c1c;
+.servico-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primaria, #bc945c);
+    box-shadow: 0 5px 15px rgba(188, 148, 92, 0.15);
+}
+
+.servico-detalhe h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.servico-detalhe .descricao {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Área de preço e tempo alinhados na base */
+.servico-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #222222;
+    padding-top: 15px;
+}
+
+.servico-meta .preco {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primaria, #bc945c);
+}
+
+.servico-meta .duracao {
+    color: #666666;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* ==========================================================================
-   RESPONSIVIDADE - TRANSFORMA A TABELA EM CARDS NO CELULAR
+   RESPONSIVIDADE DA SEÇÃO
    ========================================================================== */
 @media (max-width: 768px) {
-    .tabela-precos, 
-    .tabela-precos thead, 
-    .tabela-precos tbody, 
-    .tabela-precos th, 
-    .tabela-precos td, 
-    .tabela-precos tr {
-        display: block; /* Força tudo a virar bloco empilhado */
+    .secao-servicos {
+        padding: 60px 15px;
     }
 
-    /* Esconde o cabeçalho original da tabela */
-    .tabela-precos thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+    .servicos-header h2 {
+        font-size: 2rem;
     }
 
-    .tabela-precos tbody tr {
-        margin-bottom: 20px;
-        border: 1px solid #222;
-        border-radius: 6px;
-        background-color: #121212;
-        padding: 10px;
-    }
-
-    .tabela-precos td {
-        border: none;
-        border-bottom: 1px solid #1c1c1c;
-        position: relative;
-        padding-left: 50%; /* Abre espaço na esquerda para o título */
-        text-align: right; /* Joga o conteúdo real para a direita */
-        font-size: 0.95rem;
-    }
-
-    .tabela-precos td:last-child {
-        border-bottom: none;
-    }
-
-    /* Injeta o nome da coluna usando o atributo data-label do HTML */
-    .tabela-precos td::before {
-        content: attr(data-label);
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-family: 'Oswald', sans-serif;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: var(--primaria);
-    }
-    
-    /* Ajuste específico para o preço no mobile */
-    .tabela-precos tbody tr td:last-child {
-        font-size: 1.2rem;
+    .servicos-container {
+        grid-template-columns: 1fr; /* Em telas pequenas vira lista de uma coluna */
+        gap: 20px;
     }
 }

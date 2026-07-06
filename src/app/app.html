@@ -1,29 +1,13 @@
-@if (!isNoDashboard) {
-
-  <app-header></app-header>
-
-}
-
-
+<app-header></app-header>
 
 <main>
 
-  <router-outlet></router-outlet>
-
-  @if (!isNaAgenda) {
-    <app-home></app-home>
-    <app-servicos></app-servicos>
-    <app-sobre></app-sobre>
-    <app-galeria></app-galeria>
-    <app-depoimentos></app-depoimentos>
-    <app-contato></app-contato>
-  }
-
+  <app-home></app-home>
+  <app-servicos></app-servicos>
+  <app-sobre></app-sobre>
+  <app-galeria></app-galeria>
+  <app-depoimentos></app-depoimentos>
+  <app-contato></app-contato>
 </main>
 
-@if (!isNoDashboard) {
-
-  <app-footer></app-footer>
-
-}
-
+<app-footer></app-footer>

@@ -1,7 +1,9 @@
 <header [class.header-escondido]="isHeaderEscondido">
   <nav>
     <div class="logo">
-      <img src="imgs/logo preta.png" alt="Maique Barber Logo">
+      <a href="#home" (click)="fecharMenu()">
+        <img src="imgs/logo preta.png" alt="Maique Barber Logo">
+      </a>
     </div>
 
     <button class="menu-toggle" aria-label="Abrir Menu" (click)="toggleMenu()">
@@ -15,7 +17,7 @@
       <li><a href="#galeria" (click)="fecharMenu()">GALERIA</a></li>
       <li><a href="#depoimentos" (click)="fecharMenu()">DEPOIMENTOS</a></li>
       <li><a href="#contato" (click)="fecharMenu()">CONTATO</a></li>
-      <li><a routerLink="/login" class="nav-btn-agendar" (click)="fecharMenu()">AGENDAR AGORA</a></li>
+      <li><a href="#contato" class="nav-btn-agendar" (click)="fecharMenu()">AGENDAR AGORA</a></li>
     </ul>
   </nav>
 </header>

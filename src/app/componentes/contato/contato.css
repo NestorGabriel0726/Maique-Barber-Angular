@@ -1,80 +1,152 @@
-#contato {
-    background-color: var(--escura);
-    width: 100%;
+/* ==========================================================================
+   SEÇÃO CONTATO - ESTILOS EXCLUSIVOS DO COMPONENTE
+   ========================================================================== */
+.secao-contato {
+    background-color: #0a0a0a; /* Fundo ligeiramente mais escuro para contraste */
+    padding: 80px 20px;
+    color: #ffffff;
 }
 
+.contato-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contato-header h2 {
+    font-size: 2.5rem;
+    color: var(--primaria, #bc945c);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.contato-header .subtitulo {
+    color: #888888;
+    font-size: 1rem;
+}
+
+/* Layout em Grid / Flexbox */
 .contato-container {
     display: flex;
-    align-items: stretch;
+    flex-direction: column;
     gap: 40px;
-    margin-top: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contato-info {
     flex: 1;
-    background-color: var(--cinza-card);
-    padding: 40px;
-    border-radius: 8px;
-    border: 1px solid #222222;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    gap: 25px;
 }
 
-.contato-info p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    color: #e0e0e0;
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.info-item .icone {
+    float: left;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.info-item p {
+    margin: 0;
+    color: #aaaaaa;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
-.contato-info p strong {
-    color: var(--primaria);
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.link-whatsapp {
+.info-item strong {
     color: #ffffff;
+}
+
+/* Caixa de destaque do WhatsApp */
+.whatsapp-box {
+    margin-top: 15px;
+    background-color: #111111;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 4px solid #25D366; /* Detalhe verde do Whats */
+}
+
+.whatsapp-box p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #dddddd;
+}
+
+/* O BOTÃO COMPLETO E ESTILIZADO */
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--primaria, #bc945c);
+    color: #0a0a0a !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     text-decoration: none;
-    font-weight: bold;
-    transition: var(--transicao);
+    padding: 14px 28px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(188, 148, 92, 0.2);
+    width: fit-content;
 }
 
-.link-whatsapp:hover {
-    color: #25D366;
-    text-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+.btn-whatsapp:hover {
+    background-color: #ffffff;
+    color: #0a0a0a !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
 }
 
+.btn-whatsapp i {
+    font-size: 1.3rem;
+}
+
+/* Container do Mapa */
 .mapa-box {
     flex: 1;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    border: 2px solid var(--primaria);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    min-height: 350px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    border: 1px solid #222222;
 }
 
 .mapa-box iframe {
-    width: 100%;
-    height: 100%;
     display: block;
 }
 
-@media (max-width: 768px) {
+/* ==========================================================================
+   RESPONSIVIDADE (DESKTOP)
+   ========================================================================== */
+@media (min-width: 992px) {
     .contato-container {
-        flex-direction: column;
-        gap: 25px;
+        flex-direction: row; /* Coloca info e mapa lado a lado no desktop */
+        align-items: center;
     }
     
-    .contato-info {
-        padding: 30px 20px;
+    .contato-info, .mapa-box {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .secao-contato {
+        padding: 60px 15px;
+    }
+
+    .contato-header h2 {
+        font-size: 2rem;
     }
     
-    .mapa-box {
-        height: 300px;
-        min-height: auto;
+    .btn-whatsapp {
+        width: 100%; /* Botão expande no mobile para facilitar o clique */
     }
 }
