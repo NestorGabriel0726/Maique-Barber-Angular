@@ -1,62 +1,206 @@
-#depoimentos {
-    background-color: var(--escura);
-    width: 100%;
-    transition: var(--transicao);
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS DA SEÇÃO DE DEPOIMENTOS
+   ========================================================================== */
+.depoimentos-secao {
+    padding: 80px 20px;
+    background: var(--escura);
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    text-align: center;
 }
 
-.depoimento-container {
+.titulo-secao {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.5rem;
+    color: var(--primaria);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.subtitulo-secao {
+    color: var(--texto);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   CONTAINER DO CARROSSEL
+   ========================================================================== */
+.carrossel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Janela que esconde os elementos que ultrapassam os limites */
+.carrossel-viewport {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0; /* Margem extra para o efeito de "scale" (zoom) do card ativo */
+}
+
+/* Linha horizontal que carrega todos os slides lado a lado */
+.carrossel-trilho {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+/* ==========================================================================
+   CARDS INDIVIDUAIS (SLIDES)
+   ========================================================================== */
+.depoimento-card {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 50px 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(188, 148, 92, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+    opacity: 0.5;
+    transition: transform 0.5s ease, opacity 0.5s ease, background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+/* Card ativo (focado no centro) */
+.depoimento-card.ativo {
+    transform: scale(1);
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primaria);
+}
+
+/* Estilização para o Light Mode */
+:host-context(body.light-mode) .depoimento-card {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(188, 148, 92, 0.2);
+}
+
+:host-context(body.light-mode) .depoimento-card.ativo {
+    background: #ffffff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   CONTEÚDO INTERNO DOS CARDS
+   ========================================================================== */
+.aspas {
+    font-family: 'Oswald', sans-serif;
+    font-size: 5rem;
+    color: var(--primaria);
+    line-height: 1;
+    position: absolute;
+    top: -10px;
+    left: 30px;
+    opacity: 0.3;
+}
+
+.depoimento-texto {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--texto);
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.cliente-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cliente-nome {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    color: var(--primaria);
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   BOTÕES DE NAVEGAÇÃO (SETAS LATERAIS)
+   ========================================================================== */
+.nav-btn {
+    background: none;
+    border: none;
+    color: var(--primaria);
+    font-size: 1.8rem;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-btn:hover {
+    color: var(--texto);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn.prev {
+    left: -60px;
+}
+
+.nav-btn.next {
+    right: -60px;
+}
+
+/* ==========================================================================
+   INDICADORES DE NAVEGAÇÃO (BOLINHAS/DOTS)
+   ========================================================================== */
+.indicadores {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 30px;
 }
 
-.depoimento-card {
-    background-color: var(--cinza-card);
-    padding: 35px 25px;
-    border-radius: 8px;
-    flex: 1;
-    min-width: 280px;
-    max-width: 350px;
-    border: 1px solid rgba(188, 148, 92, 0.15);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    position: relative;
-    transition: var(--transicao);
+.ponto {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(188, 148, 92, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.depoimento-card:hover {
-    border-color: var(--primaria);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(188, 148, 92, 0.15);
+.ponto:hover {
+    background: rgba(188, 148, 92, 0.6);
 }
 
-.depoimento-card p {
-    font-style: italic;
-    color: var(--texto);
-    opacity: 0.85;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    font-size: 1rem;
-    transition: var(--transicao);
+/* Suporte para as duas variações de nomenclatura ativa */
+.ponto.active, 
+.ponto.ativo {
+    background: var(--primaria);
+    transform: scale(1.3);
 }
 
-.depoimento-card cite {
-    display: block;
-    font-family: 'Oswald', sans-serif;
-    color: var(--primaria);
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.95rem;
-    text-align: right;
-}
-
+/* ==========================================================================
+   RESPONSIVIDADE (MOBILE E DISPOSITIVOS MENORES)
+   ========================================================================== */
 @media (max-width: 768px) {
-    .depoimento-container {
-        gap: 20px;
+    /* Esconde as setas no mobile (usuários preferem deslizar ou usar os pontos) */
+    .nav-btn {
+        display: none; 
     }
+    
     .depoimento-card {
-        max-width: 100%;
+        padding: 40px 20px;
+    }
+
+    .depoimento-texto {
+        font-size: 1.05rem;
+    }
+
+    .titulo-secao {
+        font-size: 2rem;
     }
 }

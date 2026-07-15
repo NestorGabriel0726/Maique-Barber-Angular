@@ -1,0 +1,407 @@
+/* ==========================================================================
+   ESTILOS GERAIS DA TELA DE LOGIN / CADASTRO
+   ========================================================================== */
+.login-container {
+  --fundo-pagina: #0d0d0d;
+  --fundo-card: #151515;
+  --texto-principal: #ffffff;
+  --texto-secundario: #a3a3a3;
+  --borda: #262626;
+  --fundo-input: #1a1a1a;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--fundo-pagina);
+  padding: 20px;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+/* Modo Claro Dinâmico */
+.login-container.light-mode {
+  --fundo-pagina: #f5f5f7;
+  --fundo-card: #ffffff;
+  --texto-principal: #1c1c1e;
+  --texto-secundario: #6e6e73;
+  --borda: #e5e5ea;
+  --fundo-input: #f2f2f7;
+}
+
+/* Botões Globais (Voltar e Alternar Tema) */
+.btn-voltar {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background: none;
+  border: none;
+  color: var(--primaria);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-voltar:hover {
+  color: var(--texto-principal);
+  transform: translateX(-4px);
+}
+
+.btn-tema {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: var(--fundo-card);
+  border: 1px solid var(--borda);
+  color: var(--primaria);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btn-tema:hover {
+  transform: scale(1.1);
+}
+
+/* Estrutura do Card de Entrada */
+.login-card {
+  background-color: var(--fundo-card);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  padding: 40px 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Logotipo */
+.brand-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo-img {
+  height: 90px;
+  object-fit: contain;
+}
+
+/* Tipografia */
+.form-content h2 {
+  color: var(--texto-principal);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.form-content .subtitle {
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+/* Campos de Formulário */
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  color: var(--texto-principal);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 15px;
+  color: var(--primaria);
+  font-size: 1.05rem;
+}
+
+.input-wrapper input {
+  width: 100%;
+  background-color: var(--fundo-input);
+  border: 1px solid var(--borda);
+  color: var(--texto-principal);
+  padding: 14px 15px 14px 45px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.25s ease, background-color 0.3s ease;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--primaria);
+}
+
+/* Botão de Envio */
+.btn-submit {
+  width: 100%;
+  background-color: var(--primaria);
+  color: #121212 !important;
+  border: none;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(188, 148, 92, 0.4);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Divisor Visual */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 25px 0;
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--borda);
+}
+
+.divider:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+  margin-left: .5em;
+}
+
+/* Botão Google */
+.btn-google {
+  width: 100%;
+  background-color: var(--fundo-card);
+  border: 1px solid var(--borda);
+  color: var(--texto-principal);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s ease, border-color 0.2s;
+}
+
+.btn-google:hover {
+  background-color: var(--fundo-input);
+}
+
+.google-logo {
+  width: 18px;
+  height: 18px;
+}
+
+/* Textos do Rodapé do Form */
+.footer-text {
+  color: var(--texto-secundario);
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+}
+
+.footer-text a {
+  color: var(--primaria);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* Caixa de Termos (Checkbox) */
+.checkbox-group {
+  margin-bottom: 22px;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--texto-secundario);
+  user-select: none;
+  line-height: 1.4;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: var(--fundo-input);
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  border-color: var(--primaria);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--primaria);
+  border-color: var(--primaria);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid #121212;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container a {
+  color: var(--primaria);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.checkbox-container a:hover {
+  text-decoration: underline;
+}
+
+/* Modais Dinâmicos */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card {
+  background: var(--fundo-card);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modal-card h3 {
+  color: var(--texto-principal);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.modal-body {
+  color: var(--texto-secundario);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 25px;
+  padding-right: 10px;
+}
+
+.btn-modal-fechar {
+  background: var(--primaria);
+  color: #121212 !important;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  float: right;
+  transition: transform 0.2s ease;
+}
+
+.btn-modal-fechar:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsividade Mobile */
+@media (max-width: 500px) {
+  .btn-voltar {
+    top: 20px;
+    left: 20px;
+  }
+  
+  .btn-tema {
+    top: 20px;
+    right: 20px;
+  }
+
+  .login-card {
+    padding: 30px 20px;
+    margin-top: 50px;
+  }
+}

@@ -1,0 +1,130 @@
+<div class="login-container" [class.light-mode]="isLightMode">
+  <!-- Botão Voltar -->
+  <button class="btn-voltar" (click)="retornarAoSite()" aria-label="Voltar para a Home">
+    <i class="fa-solid fa-arrow-left"></i> Voltar ao site
+  </button>
+
+  <!-- Botão Tema -->
+  <button class="btn-tema" (click)="toggleTheme()" aria-label="Alternar tema">
+    <i class="fa-solid" [ngClass]="isLightMode ? 'fa-moon' : 'fa-sun'"></i>
+  </button>
+
+  <div class="login-card">
+    <!-- Logotipo -->
+    <div class="brand-header">
+      <img [src]="isLightMode ? 'imgs/MAIQUE BARBER.png' : 'imgs/logo preta.png'" alt="Maique Barber Logo" class="logo-img">
+    </div>
+
+    <!-- TELA DE LOGIN -->
+    <div *ngIf="estadoTela === 'login'" class="form-content">
+      <h2>Seja Bem-vindo</h2>
+      <p class="subtitle">Acesse sua conta para gerenciar e realizar agendamentos.</p>
+
+      <form (submit)="executarLogin(); $event.preventDefault()">
+        <div class="input-group">
+          <label for="usuario">E-mail ou Usuário</label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="text" id="usuario" name="usuario" [(ngModel)]="loginData.usuario" placeholder="Digite seu e-mail" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="senha" name="senha" [(ngModel)]="loginData.senha" placeholder="Digite sua senha" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Entrar</button>
+      </form>
+
+      <div class="divider">
+        <span>ou entre com</span>
+      </div>
+
+      <button class="btn-google" (click)="loginGoogle()">
+        <img src="https://lh3.googleusercontent.com/COxitTo2Yg1ut5BQWWmU179vs3Hdh474Afsc692O27unp_6ARbA8vOGP5g_57Rms759u3g3_A_7gW6ypR6Xg6BtevCHuIAI9S8M=w48" alt="Google Logo" class="google-logo">
+        Entrar com o Google
+      </button>
+
+      <p class="footer-text">
+        Não tem uma conta? <a (click)="irParaCadastro()">Cadastre-se</a>
+      </p>
+    </div>
+
+    <!-- TELA DE CADASTRO -->
+    <div *ngIf="estadoTela === 'cadastro'" class="form-content">
+      <h2>Criar Nova Conta</h2>
+      <p class="subtitle">Cadastre-se para garantir seu horário na cadeira de forma rápida.</p>
+
+      <form (submit)="executarCadastro(); $event.preventDefault()">
+        <div class="input-group">
+          <label for="nome">Nome Completo</label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="nome" name="nome" [(ngModel)]="cadastroData.nome" placeholder="Digite seu nome" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" id="email" name="email" [(ngModel)]="cadastroData.email" placeholder="Digite seu e-mail" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="cad-senha">Senha</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="cad-senha" name="senha" [(ngModel)]="cadastroData.senha" placeholder="Mínimo 6 caracteres" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="conf-senha">Confirmar Senha</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="conf-senha" name="confirmarSenha" [(ngModel)]="cadastroData.confirmarSenha" placeholder="Confirme sua senha" required>
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-container">
+            <input type="checkbox" name="aceitouTermos" [(ngModel)]="cadastroData.aceitouTermos" required>
+            <span class="checkmark"></span>
+            Li e aceito os <a (click)="abrirModal('termos')">Termos de Uso</a> e <a (click)="abrirModal('lgpd')">Políticas de Privacidade</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="!cadastroData.aceitouTermos">Criar Minha Conta</button>
+      </form>
+
+      <p class="footer-text">
+        Já possui uma conta? <a (click)="irParaLogin()">Fazer Login</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- MODAL DE TERMOS E POLÍTICA -->
+  <div class="modal-overlay" *ngIf="modalAtivo !== null">
+    <div class="modal-card">
+      <h3 *ngIf="modalAtivo === 'termos'">Termos de Uso</h3>
+      <h3 *ngIf="modalAtivo === 'lgpd'">Política de Privacidade (LGPD)</h3>
+      
+      <div class="modal-body">
+        <p *ngIf="modalAtivo === 'termos'">
+          Ao utilizar o sistema de agendamentos do Maique Barber, você concorda que o não comparecimento sem aviso prévio de até 2 horas do horário agendado poderá acarretar restrições para futuros agendamentos na plataforma. Preze pelo tempo dos nossos profissionais.
+        </p>
+        <p *ngIf="modalAtivo === 'lgpd'">
+          Nosso sistema protege todos os seus dados informados de acordo com a LGPD. Suas informações pessoais e dados de contato serão utilizados unicamente para validação do agendamento, comunicação direta sobre horários, confirmações automáticas e alertas de agenda.
+        </p>
+      </div>
+
+      <button class="btn-modal-fechar" (click)="fecharModal()">Entendi</button>
+    </div>
+  </div>
+</div>

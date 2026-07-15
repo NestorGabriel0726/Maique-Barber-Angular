@@ -1,13 +1,21 @@
-<app-header></app-header>
+<!-- Se NÃO estiver na tela de login, exibe a estrutura padrão do site completo -->
+<ng-container *ngIf="!isTelaLogin()">
+  <app-header></app-header>
 
-<main>
+  <main>
+    <app-home></app-home>
+    <app-servicos></app-servicos>
+    <app-sobre></app-sobre>
+    <app-galeria></app-galeria>
+    <app-depoimentos></app-depoimentos>
+    <app-contato></app-contato>
+  </main>
+</ng-container>
 
-  <app-home></app-home>
-  <app-servicos></app-servicos>
-  <app-sobre></app-sobre>
-  <app-galeria></app-galeria>
-  <app-depoimentos></app-depoimentos>
-  <app-contato></app-contato>
-</main>
+<!-- O Router Outlet sempre fica ativo para renderizar a rota atual (como a página de Login) -->
+<router-outlet></router-outlet>
 
-<app-footer></app-footer>
+<!-- O Footer também some caso o usuário esteja na tela de login -->
+<ng-container *ngIf="!isTelaLogin()">
+  <app-footer></app-footer>
+</ng-container>

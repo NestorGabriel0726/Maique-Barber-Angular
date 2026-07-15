@@ -1,41 +1,33 @@
-import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.html',
-  styleUrl: './header.css',
+  styleUrl: './header.css'
 })
 export class Header {
-
-  isLightMode = false;
-
-  // Controle de scroll do Header
-  private ultimoScroll = 0;
-  isHeaderEscondido = false;
-
-  // Controle do menu mobile
   isMenuAberto = false;
+  isHeaderEscondido = false;
+  isLightMode = false;
+  private ultimoScroll = 0;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.fecharMenu();
-    const scrollAtual = window.pageYOffset || document.documentElement.scrollTop;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.detectarTemaInicial();
+  }
 
-    if (scrollAtual <= 0) {
-      this.isHeaderEscondido = false;
-      return;
+  detectarTemaInicial() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isLightMode = document.body.classList.contains('light-mode');
     }
-
-    if (scrollAtual > this.ultimoScroll && !this.isHeaderEscondido) {
-      this.isHeaderEscondido = true;
-    } else if (scrollAtual < this.ultimoScroll && this.isHeaderEscondido) {
-      this.isHeaderEscondido = false;
-    }
-    
-    this.ultimoScroll = scrollAtual;
   }
 
   toggleMenu() {
@@ -46,11 +38,40 @@ export class Header {
     this.isMenuAberto = false;
   }
 
-  // Função para alterar o tema do site
   toggleTheme() {
     this.isLightMode = !this.isLightMode;
-    if (typeof document !== 'undefined') {
+    if (isPlatformBrowser(this.platformId)) {
       document.body.classList.toggle('light-mode', this.isLightMode);
+    }
+  }
+
+  estaLogado(): boolean {
+    return this.authService.isLogado();
+  }
+
+  aoClicarBotao() {
+    if (this.estaLogado()) {
+      const elemento = document.getElementById('contato');
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  // Efeito de esconder o Header ao rolar para baixo e mostrar ao rolar para cima
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (isPlatformBrowser(this.platformId)) {
+      const scrollAtual = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollAtual > this.ultimoScroll && scrollAtual > 150) {
+        this.isHeaderEscondido = true;
+      } else {
+        this.isHeaderEscondido = false;
+      }
+      this.ultimoScroll = scrollAtual <= 0 ? 0 : scrollAtual;
     }
   }
 }

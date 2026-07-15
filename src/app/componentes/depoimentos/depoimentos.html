@@ -1,19 +1,50 @@
-<section id="depoimentos">
-            <h2>O que nossos clientes dizem</h2>
-            <div class="depoimento-container">
-                <div class="depoimento-card">
-                    <p>"Melhor atendimento que já tive. O ambiente é sensacional e o corte ficou perfeito."</p>
-                    <cite>— Lucas Silva</cite>
-                </div>
+<section id="depoimentos" class="depoimentos-secao">
+  <div class="container">
+    <h2 class="titulo-secao">O Que Dizem Nossos Clientes</h2>
+    <p class="subtitulo-secao">A satisfação de quem vive a experiência Maique Barber no dia a dia.</p>
 
-                <div class="depoimento-card">
-                    <p>"Melhor atendimento que já tive. O ambiente é sensacional e o corte ficou perfeito."</p>
-                    <cite>— Lucas Silva</cite>
-                </div>
+    <div class="carrossel-container">
+      
+      <!-- Seta de Navegação: Anterior -->
+      <button class="nav-btn prev" (click)="cliqueAnterior()" aria-label="Depoimento anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
 
-                <div class="depoimento-card">
-                    <p>"Melhor atendimento que já tive. O ambiente é sensacional e o corte ficou perfeito."</p>
-                    <cite>— Lucas Silva</cite>
-                </div>
+      <!-- Janela Visível do Carrossel -->
+      <div class="carrossel-viewport">
+        <!-- Trilho deslizante -->
+        <div class="carrossel-trilho" [style.transform]="'translateX(-' + (slideAtivo * 100) + '%)'">
+          
+          <!-- Card de Depoimento -->
+          <div class="depoimento-card" *ngFor="let dep of depoimentos; let i = index" [class.ativo]="i === slideAtivo">
+            <div class="aspas">“</div>
+            <p class="depoimento-texto">{{ dep.texto }}</p>
+
+            <div class="cliente-info">
+              <h4 class="cliente-nome">{{ dep.nome }}</h4>
             </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Seta de Navegação: Próximo -->
+      <button class="nav-btn next" (click)="cliqueProximo()" aria-label="Próximo depoimento">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+    </div>
+
+    <!-- Indicadores (Bolinhas de controle) -->
+    <div class="indicadores">
+      <button 
+        *ngFor="let dep of depoimentos; let i = index" 
+        class="ponto" 
+        [class.ativo]="i === slideAtivo" 
+        (click)="irParaSlide(i)"
+        [aria-label]="'Ir para depoimento ' + (i + 1)">
+      </button>
+    </div>
+
+  </div>
 </section>

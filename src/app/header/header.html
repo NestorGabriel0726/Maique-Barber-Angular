@@ -17,7 +17,23 @@
       <li><a href="#galeria" (click)="fecharMenu()">GALERIA</a></li>
       <li><a href="#depoimentos" (click)="fecharMenu()">DEPOIMENTOS</a></li>
       <li><a href="#contato" (click)="fecharMenu()">CONTATO</a></li>
-      <li><a href="#contato" class="nav-btn-agendar" (click)="fecharMenu()">AGENDAR AGORA</a></li>
+      
+      <!-- Botão Dinâmico de Login / Agendamento -->
+      <li>
+        <button 
+          [class]="estaLogado() ? 'nav-btn-agendar' : 'nav-btn-login'" 
+          (click)="aoClicarBotao(); fecharMenu()">
+          
+          <ng-container *ngIf="!estaLogado()">
+            <i class="fa-solid fa-right-to-bracket"></i> Entrar / Cadastrar
+          </ng-container>
+
+          <ng-container *ngIf="estaLogado()">
+            <i class="fa-regular fa-calendar-check"></i> Agendar Agora
+          </ng-container>
+        </button>
+      </li>
+
       <li>
         <button class="btn-theme-toggle" (click)="toggleTheme()" aria-label="Alternar tema">
           <i class="fa-solid" [ngClass]="isLightMode ? 'fa-sun' : 'fa-moon'"></i>

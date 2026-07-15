@@ -2,7 +2,7 @@
    HEADER - ESTILOS EXCLUSIVOS DO COMPONENTE (APENAS LANDING PAGE)
    ========================================================================== */
 header {
-    background: rgba(var(--escura), 0.95); /* Modificado para usar variável do tema com transparência */
+    background: rgba(var(--escura), 0.95); 
     backdrop-filter: blur(8px);
     padding: 10px 0;
     position: fixed;
@@ -18,7 +18,6 @@ body:not(.light-mode) header { background: rgba(10, 10, 10, 0.95); }
 body.light-mode header { background: rgba(245, 245, 245, 0.95); }
 
 /* Troca a imagem de origem apenas quando o Light Mode estiver ativo */
-/* Usando :host-context para burlar o isolamento de escopo do Angular */
 :host-context(body.light-mode) .logo img {
     content: url('/imgs/MAIQUE BARBER.png');
 }
@@ -76,18 +75,44 @@ nav ul li a:hover {
     color: var(--primaria); 
 }
 
+/* BOTÃO DE AGENDAR AGORA (LOGADO) */
 .nav-btn-agendar {
     background-color: var(--primaria);
-    color: var(--escura) !important; /* Texto adapta-se para contrastar com o dourado */
+    color: var(--escura) !important;
     font-weight: bold;
     padding: 10px 18px !important;
     border-radius: 4px;
     letter-spacing: 1px;
     transition: var(--transicao);
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
 }
 
 .nav-btn-agendar:hover {
-    background-color: var(--texto) !important; /* Vira preto ou branco dependendo do tema */
+    background-color: var(--texto) !important;
+    color: var(--escura) !important;
+    box-shadow: 0 0 15px rgba(188, 148, 92, 0.4);
+}
+
+/* BOTÃO DE ENTRAR / CADASTRAR (DESLOGADO) */
+.nav-btn-login {
+    background: transparent;
+    color: var(--primaria) !important;
+    font-weight: bold;
+    padding: 9px 17px !important;
+    border-radius: 4px;
+    border: 1px solid var(--primaria);
+    letter-spacing: 1px;
+    transition: var(--transicao);
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.nav-btn-login:hover {
+    background-color: var(--primaria) !important;
     color: var(--escura) !important;
     box-shadow: 0 0 15px rgba(188, 148, 92, 0.4);
 }
@@ -104,7 +129,6 @@ nav ul li a:hover {
 /* ==========================================================================
    RESPONSIVIDADE EXCLUSIVA DO HEADER (MOBILE & DESKTOP)
    ========================================================================== */
-
 @media (max-width: 768px) {
     nav {
         flex-direction: row;
@@ -131,7 +155,7 @@ nav ul li a:hover {
         right: -100%;
         width: 70%;
         height: 100vh;
-        background: var(--escura); /* Fundo do menu lateral dinâmico */
+        background: var(--escura); 
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -145,16 +169,18 @@ nav ul li a:hover {
     }
 
     .nav-links li {
-        margin: 25px 0;
+        margin: 20px 0;
         width: 100%;
         text-align: center;
+        display: flex;
+        justify-content: center;
     }
 
     .nav-links a {
         font-size: 1.4rem;
     }
 
-    .nav-btn-agendar {
+    .nav-btn-agendar, .nav-btn-login {
         display: inline-block;
         width: 80%;
         padding: 15px 0 !important;
