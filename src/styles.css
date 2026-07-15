@@ -12,6 +12,13 @@
     --transicao: all 0.3s ease-in-out;
 }
 
+/* Inversão de cores para o Light Mode mantendo os nomes das variáveis */
+body.light-mode {
+    --escura: #f5f5f5;       /* Fundo principal passa a ser claro */
+    --cinza-card: #ffffff;   /* Os cards passam a ser brancos */
+    --texto: #111111;        /* O texto passa a ser escuro */
+}
+
 * { 
     margin: 0; 
     padding: 0; 
@@ -26,6 +33,7 @@ body {
     line-height: 1.6;
     padding-top: 100px; /* Compensa o espaço do header fixo */
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave ao mudar o tema */
 }
 
 /* ==========================================================================

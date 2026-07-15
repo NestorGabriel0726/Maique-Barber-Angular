@@ -2,10 +2,11 @@
    FOOTER - ESTILOS EXCLUSIVOS DO COMPONENTE
    ========================================================================== */
 footer {
-    background: #050505;
+    background: var(--cinza-card); /* Fundo dinâmico para encaixe de tema perfeito */
     padding: 30px 20px;
     text-align: center;
     border-top: 2px solid var(--primaria);
+    transition: var(--transicao);
 }
 
 .social-links {
@@ -17,9 +18,9 @@ footer {
 
 /* Estilo do link que envolve o ícone e o texto */
 .instagram-link {
-    display: flex;           /* Transforma o link em flex */
-    align-items: center;     /* Alinha verticalmente o ícone e o texto */
-    gap: 10px;               /* Espaço entre o ícone e o texto */
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: var(--primaria);
     text-decoration: none;
     font-weight: bold;
@@ -27,10 +28,10 @@ footer {
 }
 
 .instagram-link i {
-    font-size: 1.8rem;       /* Tamanho do ícone */
+    font-size: 1.8rem;
 }
 
 .instagram-link:hover {
-    color: #ffffff;
+    color: var(--texto); /* Muda dinamicamente dependendo do tema ativo */
     transform: scale(1.05);
 }

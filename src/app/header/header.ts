@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header {
+
+  isLightMode = false;
+
   // Controle de scroll do Header
   private ultimoScroll = 0;
   isHeaderEscondido = false;
@@ -41,5 +44,13 @@ export class Header {
 
   fecharMenu() {
     this.isMenuAberto = false;
+  }
+
+  // Função para alterar o tema do site
+  toggleTheme() {
+    this.isLightMode = !this.isLightMode;
+    if (typeof document !== 'undefined') {
+      document.body.classList.toggle('light-mode', this.isLightMode);
+    }
   }
 }

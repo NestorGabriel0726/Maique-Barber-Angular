@@ -1,6 +1,7 @@
 #depoimentos {
     background-color: var(--escura);
     width: 100%;
+    transition: var(--transicao);
 }
 
 .depoimento-container {
@@ -18,8 +19,8 @@
     flex: 1;
     min-width: 280px;
     max-width: 350px;
-    border: 1px solid #222222;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(188, 148, 92, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     position: relative;
     transition: var(--transicao);
 }
@@ -27,14 +28,17 @@
 .depoimento-card:hover {
     border-color: var(--primaria);
     transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(188, 148, 92, 0.15);
 }
 
 .depoimento-card p {
     font-style: italic;
-    color: #e0e0e0;
+    color: var(--texto);
+    opacity: 0.85;
     margin-bottom: 20px;
     line-height: 1.7;
     font-size: 1rem;
+    transition: var(--transicao);
 }
 
 .depoimento-card cite {

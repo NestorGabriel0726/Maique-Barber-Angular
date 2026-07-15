@@ -4,13 +4,14 @@
 #sobre {
     background-color: var(--escura);
     width: 100%;
+    transition: var(--transicao);
 }
 
 .sobre-container {
     display: flex;
     justify-content: space-between;
     gap: 30px;
-    flex-wrap: wrap; /* Garante que os cards quebrem de linha se necessário */
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
@@ -18,15 +19,14 @@
     background-color: var(--cinza-card);
     padding: 40px 30px;
     border-radius: 8px;
-    flex: 1; /* Faz com que todos os cards tenham exatamente o mesmo tamanho */
-    min-width: 280px; /* Impede que o card esmague demais antes de quebrar de linha */
+    flex: 1;
+    min-width: 280px;
     text-align: center;
-    border: 1px solid #222222;
+    border: 1px solid rgba(188, 148, 92, 0.15); /* Bordas adaptáveis e discretas */
     transition: var(--transicao);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Efeito de elevação e brilho ao passar o mouse */
 .card:hover {
     transform: translateY(-10px);
     border-color: var(--primaria);
@@ -43,23 +43,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Espaço entre o ícone do Font Awesome e o texto */
+    gap: 10px;
 }
 
 .card h3 i {
     font-size: 1.4rem;
-    color: #ffffff; /* Deixa o ícone branco para contrastar com o título dourado */
+    color: var(--texto); /* Adapta-se ao tema */
     transition: var(--transicao);
 }
 
 .card:hover h3 i {
-    color: var(--primaria); /* O ícone acende em dourado quando passa o mouse no card */
+    color: var(--primaria);
 }
 
 .card p {
     font-size: 0.95rem;
-    color: #cccccc;
+    color: var(--texto);
+    opacity: 0.8;
     line-height: 1.6;
+    transition: var(--transicao);
 }
 
 /* ==========================================================================

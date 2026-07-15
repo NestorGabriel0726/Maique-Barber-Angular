@@ -2,7 +2,7 @@
    HEADER - ESTILOS EXCLUSIVOS DO COMPONENTE (APENAS LANDING PAGE)
    ========================================================================== */
 header {
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(var(--escura), 0.95); /* Modificado para usar variável do tema com transparência */
     backdrop-filter: blur(8px);
     padding: 10px 0;
     position: fixed;
@@ -10,7 +10,17 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--primaria);
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.8s ease-in-out, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Fallback seguro caso o navegador não suporte rgba com var */
+body:not(.light-mode) header { background: rgba(10, 10, 10, 0.95); }
+body.light-mode header { background: rgba(245, 245, 245, 0.95); }
+
+/* Troca a imagem de origem apenas quando o Light Mode estiver ativo */
+/* Usando :host-context para burlar o isolamento de escopo do Angular */
+:host-context(body.light-mode) .logo img {
+    content: url('/imgs/MAIQUE BARBER.png');
 }
 
 header.header-escondido {
@@ -18,7 +28,7 @@ header.header-escondido {
 }
 
 header:hover {
-    border-bottom-color: #fff;
+    border-bottom-color: var(--texto);
     box-shadow: 0 4px 20px rgba(188, 148, 92, 0.3);
 }
 
@@ -68,16 +78,17 @@ nav ul li a:hover {
 
 .nav-btn-agendar {
     background-color: var(--primaria);
-    color: #0a0a0a !important;
+    color: var(--escura) !important; /* Texto adapta-se para contrastar com o dourado */
     font-weight: bold;
     padding: 10px 18px !important;
     border-radius: 4px;
     letter-spacing: 1px;
+    transition: var(--transicao);
 }
 
 .nav-btn-agendar:hover {
-    background-color: #ffffff !important;
-    color: #0a0a0a !important;
+    background-color: var(--texto) !important; /* Vira preto ou branco dependendo do tema */
+    color: var(--escura) !important;
     box-shadow: 0 0 15px rgba(188, 148, 92, 0.4);
 }
 
@@ -94,7 +105,6 @@ nav ul li a:hover {
    RESPONSIVIDADE EXCLUSIVA DO HEADER (MOBILE & DESKTOP)
    ========================================================================== */
 
-/* Telas Médias e Pequenas (Mobile/Tablet) */
 @media (max-width: 768px) {
     nav {
         flex-direction: row;
@@ -121,12 +131,12 @@ nav ul li a:hover {
         right: -100%;
         width: 70%;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.98);
+        background: var(--escura); /* Fundo do menu lateral dinâmico */
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: 0.4s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        transition: right 0.4s ease-in-out, background-color 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
         border-left: 2px solid var(--primaria);
     }
 
@@ -152,7 +162,6 @@ nav ul li a:hover {
     }
 }
 
-/* Telas Grandes (Desktop) */
 @media (min-width: 1024px) {
     nav { 
         flex-direction: row; 
@@ -163,5 +172,30 @@ nav ul li a:hover {
     }
     .logo img { 
         height: 90px; 
+    }
+}
+
+.btn-theme-toggle {
+    background: none;
+    border: none;
+    color: var(--texto);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-theme-toggle:hover {
+    color: var(--primaria);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .btn-theme-toggle {
+        font-size: 1.5rem;
+        margin: 15px 0;
     }
 }

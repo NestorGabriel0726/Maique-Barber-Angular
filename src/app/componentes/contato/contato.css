@@ -2,9 +2,10 @@
    SEÇÃO CONTATO - ESTILOS EXCLUSIVOS DO COMPONENTE
    ========================================================================== */
 .secao-contato {
-    background-color: #0a0a0a; /* Fundo ligeiramente mais escuro para contraste */
+    background-color: var(--escura); /* Mantendo a identidade dinâmica */
     padding: 80px 20px;
-    color: #ffffff;
+    color: var(--texto);
+    transition: var(--transicao);
 }
 
 .contato-header {
@@ -14,15 +15,17 @@
 
 .contato-header h2 {
     font-size: 2.5rem;
-    color: var(--primaria, #bc945c);
+    color: var(--primaria);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 10px;
 }
 
 .contato-header .subtitulo {
-    color: #888888;
+    color: var(--texto);
+    opacity: 0.6;
     font-size: 1rem;
+    transition: var(--transicao);
 }
 
 /* Layout em Grid / Flexbox */
@@ -55,28 +58,34 @@
 
 .info-item p {
     margin: 0;
-    color: #aaaaaa;
+    color: var(--texto);
+    opacity: 0.7;
     font-size: 1rem;
     line-height: 1.6;
+    transition: var(--transicao);
 }
 
 .info-item strong {
-    color: #ffffff;
+    color: var(--texto);
+    transition: var(--transicao);
 }
 
 /* Caixa de destaque do WhatsApp */
 .whatsapp-box {
     margin-top: 15px;
-    background-color: #111111;
+    background-color: var(--cinza-card); /* Fundo do container muda com o tema */
     padding: 20px;
     border-radius: 6px;
-    border-left: 4px solid #25D366; /* Detalhe verde do Whats */
+    border-left: 4px solid #25D366; 
+    transition: var(--transicao);
 }
 
 .whatsapp-box p {
     margin-bottom: 15px;
     font-size: 0.95rem;
-    color: #dddddd;
+    color: var(--texto);
+    opacity: 0.8;
+    transition: var(--transicao);
 }
 
 /* O BOTÃO COMPLETO E ESTILIZADO */
@@ -85,8 +94,8 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: var(--primaria, #bc945c);
-    color: #0a0a0a !important;
+    background-color: var(--primaria);
+    color: var(--escura) !important; /* Ajustado para dar excelente contraste com o dourado */
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 1px;
@@ -94,16 +103,16 @@
     text-decoration: none;
     padding: 14px 28px;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: var(--transicao);
     box-shadow: 0 4px 15px rgba(188, 148, 92, 0.2);
     width: fit-content;
 }
 
 .btn-whatsapp:hover {
-    background-color: #ffffff;
-    color: #0a0a0a !important;
+    background-color: var(--texto);
+    color: var(--escura) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 20px rgba(188, 148, 92, 0.3);
 }
 
 .btn-whatsapp i {
@@ -115,8 +124,9 @@
     flex: 1;
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    border: 1px solid #222222;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(188, 148, 92, 0.15);
+    transition: var(--transicao);
 }
 
 .mapa-box iframe {
@@ -128,7 +138,7 @@
    ========================================================================== */
 @media (min-width: 992px) {
     .contato-container {
-        flex-direction: row; /* Coloca info e mapa lado a lado no desktop */
+        flex-direction: row;
         align-items: center;
     }
     
@@ -147,6 +157,6 @@
     }
     
     .btn-whatsapp {
-        width: 100%; /* Botão expande no mobile para facilitar o clique */
+        width: 100%;
     }
 }

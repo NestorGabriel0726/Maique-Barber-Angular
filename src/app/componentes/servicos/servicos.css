@@ -2,9 +2,10 @@
    SEÇÃO SERVIÇOS - ESTILOS EXCLUSIVOS DO COMPONENTE
    ========================================================================== */
 .secao-servicos {
-    background-color: #0d0d0d; /* Fundo escuro clássico */
+    background-color: var(--escura); /* Fundo dinâmico */
     padding: 80px 20px;
-    color: #ffffff;
+    color: var(--texto);
+    transition: var(--transicao);
 }
 
 .servicos-header {
@@ -14,15 +15,17 @@
 
 .servicos-header h2 {
     font-size: 2.5rem;
-    color: var(--primaria, #bc945c); /* Usa a cor dourada principal */
+    color: var(--primaria);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 10px;
 }
 
 .servicos-header .subtitulo {
-    color: #888888;
+    color: var(--texto);
+    opacity: 0.6; /* Escurece sutilmente o subtitulo independente do tema */
     font-size: 1rem;
+    transition: var(--transicao);
 }
 
 /* Container organizador dos cards */
@@ -36,33 +39,36 @@
 
 /* Estilo individual de cada Card */
 .servico-card {
-    background-color: #141414;
-    border: 1px solid #222222;
+    background-color: var(--cinza-card); /* Fundo dinâmico */
+    border: 1px solid rgba(188, 148, 92, 0.15); /* Borda suave baseada no tom dourado */
     border-radius: 6px;
     padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transicao);
 }
 
 .servico-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primaria, #bc945c);
+    border-color: var(--primaria);
     box-shadow: 0 5px 15px rgba(188, 148, 92, 0.15);
 }
 
 .servico-detalhe h3 {
     font-size: 1.3rem;
-    color: #ffffff;
+    color: var(--texto);
     margin-bottom: 10px;
+    transition: var(--transicao);
 }
 
 .servico-detalhe .descricao {
-    color: #aaaaaa;
+    color: var(--texto);
+    opacity: 0.7;
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 20px;
+    transition: var(--transicao);
 }
 
 /* Área de preço e tempo alinhados na base */
@@ -70,22 +76,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #222222;
+    border-top: 1px solid rgba(188, 148, 92, 0.15);
     padding-top: 15px;
+    transition: var(--transicao);
 }
 
 .servico-meta .preco {
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--primaria, #bc945c);
+    color: var(--primaria);
 }
 
 .servico-meta .duracao {
-    color: #666666;
+    color: var(--texto);
+    opacity: 0.5;
     font-size: 0.85rem;
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: var(--transicao);
 }
 
 /* ==========================================================================
@@ -101,7 +110,7 @@
     }
 
     .servicos-container {
-        grid-template-columns: 1fr; /* Em telas pequenas vira lista de uma coluna */
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 }

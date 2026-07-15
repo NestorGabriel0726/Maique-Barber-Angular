@@ -1,17 +1,40 @@
 #home {
-    min-height: 600px;
-    width: 100%;
+    min-height: 650px;
+    
+    /* EFEITO BREAKOUT: Mantém a seção ocupando 100% da largura da tela */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: none !important;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1470') no-repeat center center;
-    background-size: contain;
-    background-color: #000;
+
+    /* GRADIENT REFINADO: Transição curtíssima e ultra suave nas bordas */
+    background: 
+        linear-gradient(
+            to bottom, 
+            var(--escura) 0%, 
+            rgba(0, 0, 0, 0.6) 3%,     /* Esmaece muito rápido logo no topo */
+            rgba(0, 0, 0, 0.7) 15%,    /* Escurecimento sutil para o contraste do menu */
+            rgba(0, 0, 0, 0.6) 85%,    /* Proteção de contraste para o texto */
+            rgba(0, 0, 0, 0.65) 97%,   /* Começa a transição bem no finalzinho */
+            var(--escura) 100%         /* Funde suavemente com a próxima seção */
+        ), 
+        url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1470') no-repeat center center;
+    background-size: cover;
+    
     padding: 120px 20px;
+    transition: var(--transicao);
+    overflow: hidden;
 }
+
 #home h1 {
     font-family: 'Oswald', sans-serif;
     font-size: clamp(2.5rem, 8vw, 4.5rem);
@@ -19,19 +42,24 @@
     text-transform: uppercase;
     margin-bottom: 15px;
     line-height: 1.1;
+    letter-spacing: 1px;
 }
+
 #home p {
     font-size: 1.2rem;
     max-width: 700px;
     margin-bottom: 35px;
-    color: #f4f4f4;
+    color: #f4f4f4; /* Mantido claro para contraste perfeito sobre o centro escurecido */
     text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    font-weight: 300;
 }
+
+/* Ajustes finos de responsividade */
 @media (max-width: 768px) {
     #home {
-        background-size: 100% auto;
-        min-height: 400px;
+        min-height: 500px;
         padding-top: 150px;
+        padding-bottom: 80px;
     }
     #home h1 { font-size: 2.5rem; }
 }

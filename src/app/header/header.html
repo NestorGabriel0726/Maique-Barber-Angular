@@ -18,6 +18,11 @@
       <li><a href="#depoimentos" (click)="fecharMenu()">DEPOIMENTOS</a></li>
       <li><a href="#contato" (click)="fecharMenu()">CONTATO</a></li>
       <li><a href="#contato" class="nav-btn-agendar" (click)="fecharMenu()">AGENDAR AGORA</a></li>
+      <li>
+        <button class="btn-theme-toggle" (click)="toggleTheme()" aria-label="Alternar tema">
+          <i class="fa-solid" [ngClass]="isLightMode ? 'fa-sun' : 'fa-moon'"></i>
+        </button>
+      </li>
     </ul>
   </nav>
 </header>
