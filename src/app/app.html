@@ -1,5 +1,5 @@
-<!-- Se NÃO estiver na tela de login, exibe a estrutura padrão do site completo -->
-<ng-container *ngIf="!isTelaLogin()">
+<!-- Se NÃO for rota auxiliar, exibe a estrutura completa da Landing Page -->
+<ng-container *ngIf="!isRotaAuxiliar()">
   <app-header></app-header>
 
   <main>
@@ -10,12 +10,11 @@
     <app-depoimentos></app-depoimentos>
     <app-contato></app-contato>
   </main>
+
+  <app-footer></app-footer>
 </ng-container>
 
-<!-- O Router Outlet sempre fica ativo para renderizar a rota atual (como a página de Login) -->
-<router-outlet></router-outlet>
-
-<!-- O Footer também some caso o usuário esteja na tela de login -->
-<ng-container *ngIf="!isTelaLogin()">
-  <app-footer></app-footer>
+<!-- Se FOR rota auxiliar (Login, Agendamento, etc.), renderiza APENAS o router-outlet -->
+<ng-container *ngIf="isRotaAuxiliar()">
+  <router-outlet></router-outlet>
 </ng-container>

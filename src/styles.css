@@ -80,6 +80,49 @@ h2 {
     box-shadow: 0 0 20px rgba(188, 148, 92, 0.4);
 }
 
+/* ==========================================================================
+   SCROLLBAR PERSONALIZADO E ELEGANTE (GLOBAL)
+   ========================================================================== */
+
+/* Garante que qualquer rolagem de âncora (como os botões que deslizam) seja suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Para navegadores Webkit (Chrome, Safari, Edge, Opera) --- */
+
+/* 1. Define a largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px; /* Largura ideal: nem muito grossa, nem muito fina */
+  height: 10px; /* Altura para rolagem horizontal (caso apareça) */
+}
+
+/* 2. O "trilho" por onde a barra desliza */
+::-webkit-scrollbar-track {
+  background: #0a0a0a; /* O mesmo preto profundo do fundo do seu site */
+}
+
+/* 3. A "barra" que o usuário arrasta (o cursor) */
+::-webkit-scrollbar-thumb {
+  background-color: #bc945c; /* O dourado/bronze característico da sua marca */
+  border-radius: 10px; /* Deixa as bordas arredondadas e modernas */
+  
+  /* Truque de mestre: uma borda da mesma cor do fundo para criar um "respiro" visual */
+  border: 2px solid #0a0a0a; 
+}
+
+/* 4. Efeito ao passar o mouse na barra */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dcb37a; /* Um dourado levemente mais brilhante para dar feedback */
+}
+
+
+/* --- Para o Firefox (que usa um padrão diferente dos outros) --- */
+html {
+  scrollbar-width: thin; /* Deixa a barra fina */
+  scrollbar-color: #bc945c #0a0a0a; /* Formato: [Cor do Cursor] [Cor do Trilho] */
+}
+
 /* Media Query Global de Estrutura do Corpo */
 @media (max-width: 768px) {
     body { padding-top: 160px; }

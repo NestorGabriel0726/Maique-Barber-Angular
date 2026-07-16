@@ -1,407 +1,436 @@
 /* ==========================================================================
-   ESTILOS GERAIS DA TELA DE LOGIN / CADASTRO
+   LAYOUT PRINCIPAL DA SEÇÃO DE ACESSO
    ========================================================================== */
-.login-container {
-  --fundo-pagina: #0d0d0d;
-  --fundo-card: #151515;
-  --texto-principal: #ffffff;
-  --texto-secundario: #a3a3a3;
-  --borda: #262626;
-  --fundo-input: #1a1a1a;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-  background-color: var(--fundo-pagina);
-  padding: 20px;
-  position: relative;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: background-color 0.3s ease;
+.login-secao {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(var(--escura), 0.92) 0%, var(--escura) 100%);
+    padding: 30px 15px;
+    position: relative;
+    transition: background-color 0.3s ease;
 }
 
-/* Modo Claro Dinâmico */
-.login-container.light-mode {
-  --fundo-pagina: #f5f5f7;
-  --fundo-card: #ffffff;
-  --texto-principal: #1c1c1e;
-  --texto-secundario: #6e6e73;
-  --borda: #e5e5ea;
-  --fundo-input: #f2f2f7;
+/* Sincronização do Light Mode */
+:host-context(body.light-mode) .login-secao {
+    background: radial-gradient(circle, #fcfcfc 0%, #ececec 100%);
 }
 
-/* Botões Globais (Voltar e Alternar Tema) */
-.btn-voltar {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  background: none;
-  border: none;
-  color: var(--primaria);
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s ease, color 0.2s ease;
+/* ==========================================================================
+   CARD CONTAINER
+   ========================================================================== */
+.card-acesso {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(188, 148, 92, 0.2);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 30px 30px 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-.btn-voltar:hover {
-  color: var(--texto-principal);
-  transform: translateX(-4px);
+:host-context(body.light-mode) .card-acesso {
+    background: #ffffff;
+    border-color: rgba(188, 148, 92, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
-.btn-tema {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  background: var(--fundo-card);
-  border: 1px solid var(--borda);
-  color: var(--primaria);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease, background-color 0.3s ease;
+.header-acesso {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-.btn-tema:hover {
-  transform: scale(1.1);
+.logo-auth {
+    height: 75px;
+    object-fit: contain;
+    transition: var(--transicao);
 }
 
-/* Estrutura do Card de Entrada */
-.login-card {
-  background-color: var(--fundo-card);
-  border: 1px solid var(--borda);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 450px;
-  padding: 40px 35px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+:host-context(body.light-mode) .logo-auth {
+    content: url('/imgs/MAIQUE BARBER.png'); /* Altera para a versão da logo preta no tema claro */
 }
 
-/* Logotipo */
-.brand-header {
-  text-align: center;
-  margin-bottom: 25px;
+/* ==========================================================================
+   ESTILOS DE TEXTO E FORMULÁRIOS
+   ========================================================================== */
+.titulo-auth {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primaria);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
 }
 
-.logo-img {
-  height: 90px;
-  object-fit: contain;
+.subtitulo-auth {
+    color: var(--texto);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+    opacity: 0.7;
 }
 
-/* Tipografia */
-.form-content h2 {
-  color: var(--texto-principal);
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  text-align: center;
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.form-content .subtitle {
-  color: var(--texto-secundario);
-  font-size: 0.9rem;
-  text-align: center;
-  margin-bottom: 30px;
-  line-height: 1.4;
+.campo-grupo label {
+    font-size: 0.8rem;
+    color: var(--texto);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Campos de Formulário */
-.input-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+.campo-grupo input {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: var(--texto);
+    font-size: 0.95rem;
+    transition: var(--transicao);
+    outline: none;
 }
 
-.input-group label {
-  color: var(--texto-principal);
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 8px;
+:host-context(body.light-mode) .campo-grupo input {
+    background: #f8f8f8;
+    border-color: #d8d8d8;
+    color: #222222;
 }
 
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+.campo-grupo input:focus {
+    border-color: var(--primaria);
+    box-shadow: 0 0 8px rgba(188, 148, 92, 0.25);
 }
 
-.input-wrapper i {
-  position: absolute;
-  left: 15px;
-  color: var(--primaria);
-  font-size: 1.05rem;
+/* Checkbox da LGPD */
+.campo-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
-.input-wrapper input {
-  width: 100%;
-  background-color: var(--fundo-input);
-  border: 1px solid var(--borda);
-  color: var(--texto-principal);
-  padding: 14px 15px 14px 45px;
-  border-radius: 6px;
-  outline: none;
-  font-size: 0.95rem;
-  transition: border-color 0.25s ease, background-color 0.3s ease;
+.campo-checkbox input {
+    margin-top: 3px;
+    cursor: pointer;
 }
 
-.input-wrapper input:focus {
-  border-color: var(--primaria);
+.campo-checkbox label {
+    font-size: 0.8rem;
+    color: var(--texto);
+    line-height: 1.4;
+    cursor: pointer;
 }
 
-/* Botão de Envio */
-.btn-submit {
-  width: 100%;
-  background-color: var(--primaria);
-  color: #121212 !important;
-  border: none;
-  padding: 14px;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
-  margin-top: 10px;
+.campo-checkbox a {
+    color: var(--primaria);
+    text-decoration: underline;
+    font-weight: bold;
 }
 
-.btn-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(188, 148, 92, 0.4);
+/* ==========================================================================
+   BOTÕES DE AÇÃO
+   ========================================================================== */
+.btn-principal {
+    width: 100%;
+    background: var(--primaria);
+    color: var(--escura) !important;
+    font-weight: bold;
+    font-size: 0.95rem;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transicao);
 }
 
-.btn-submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.btn-principal:hover:not(:disabled) {
+    background: var(--texto);
+    color: var(--escura) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(188, 148, 92, 0.3);
 }
 
-/* Divisor Visual */
-.divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 25px 0;
-  color: var(--texto-secundario);
-  font-size: 0.8rem;
+.btn-principal:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid var(--borda);
+.divisor {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: var(--texto);
+    font-size: 0.8rem;
+    opacity: 0.5;
 }
 
-.divider:not(:empty)::before {
-  margin-right: .5em;
+.divisor::before,
+.divisor::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.divider:not(:empty)::after {
-  margin-left: .5em;
+:host-context(body.light-mode) .divisor::before,
+:host-context(body.light-mode) .divisor::after {
+    border-color: #d8d8d8;
 }
 
-/* Botão Google */
+.divisor span {
+    padding: 0 10px;
+}
+
 .btn-google {
-  width: 100%;
-  background-color: var(--fundo-card);
-  border: 1px solid var(--borda);
-  color: var(--texto-principal);
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: background-color 0.2s ease, border-color 0.2s;
+    width: 100%;
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transicao);
+}
+
+.btn-google img {
+    height: 18px;
+    width: 18px;
 }
 
 .btn-google:hover {
-  background-color: var(--fundo-input);
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.google-logo {
-  width: 18px;
-  height: 18px;
+/* LINKS INTERNOS */
+.link-alternativo {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--texto);
+    margin-top: 25px;
+    opacity: 0.8;
 }
 
-/* Textos do Rodapé do Form */
-.footer-text {
-  color: var(--texto-secundario);
-  text-align: center;
-  margin-top: 25px;
-  font-size: 0.9rem;
+.link-alternativo a {
+    color: var(--primaria);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.footer-text a {
-  color: var(--primaria);
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
+.link-alternativo a:hover {
+    text-decoration: underline;
 }
 
-.footer-text a:hover {
-  text-decoration: underline;
+/* ==========================================================================
+   FOOTER (RETORNAR) & ALTERNADOR DE TEMA
+   ========================================================================== */
+.footer-acesso {
+    margin-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
 }
 
-/* Caixa de Termos (Checkbox) */
-.checkbox-group {
-  margin-bottom: 22px;
+:host-context(body.light-mode) .footer-acesso {
+    border-color: #eaeaea;
 }
 
-.checkbox-container {
-  display: block;
-  position: relative;
-  padding-left: 28px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  color: var(--texto-secundario);
-  user-select: none;
-  line-height: 1.4;
+.btn-retornar {
+    background: none;
+    border: none;
+    color: var(--texto);
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: var(--transicao);
 }
 
-.checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.btn-retornar i {
+    margin-right: 5px;
 }
 
-.checkmark {
-  position: absolute;
-  top: 1px;
-  left: 0;
-  height: 18px;
-  width: 18px;
-  background-color: var(--fundo-input);
-  border: 1px solid var(--borda);
-  border-radius: 4px;
+.btn-retornar:hover {
+    opacity: 1;
+    color: var(--primaria);
 }
 
-.checkbox-container:hover input ~ .checkmark {
-  border-color: var(--primaria);
-}
-
-.checkbox-container input:checked ~ .checkmark {
-  background-color: var(--primaria);
-  border-color: var(--primaria);
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.checkbox-container .checkmark:after {
-  left: 5px;
-  top: 2px;
-  width: 5px;
-  height: 9px;
-  border: solid #121212;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.checkbox-container a {
-  color: var(--primaria);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.checkbox-container a:hover {
-  text-decoration: underline;
-}
-
-/* Modais Dinâmicos */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-  z-index: 1100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal-card {
-  background: var(--fundo-card);
-  border: 1px solid var(--borda);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
-  padding: 30px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.modal-card h3 {
-  color: var(--texto-principal);
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-.modal-body {
-  color: var(--texto-secundario);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  max-height: 250px;
-  overflow-y: auto;
-  margin-bottom: 25px;
-  padding-right: 10px;
-}
-
-.btn-modal-fechar {
-  background: var(--primaria);
-  color: #121212 !important;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  float: right;
-  transition: transform 0.2s ease;
-}
-
-.btn-modal-fechar:hover {
-  transform: translateY(-1px);
-}
-
-/* Responsividade Mobile */
-@media (max-width: 500px) {
-  .btn-voltar {
-    top: 20px;
-    left: 20px;
-  }
-  
-  .btn-tema {
+.btn-theme-toggle {
+    position: absolute;
     top: 20px;
     right: 20px;
-  }
+    background: none;
+    border: none;
+    color: var(--texto);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+    transition: var(--transicao);
+}
 
-  .login-card {
-    padding: 30px 20px;
-    margin-top: 50px;
-  }
+.btn-theme-toggle:hover {
+    color: var(--primaria);
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DE MODAIS
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-conteudo {
+    background: rgb(20, 20, 20);
+    border: 2px solid var(--primaria);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    padding: 35px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+:host-context(body.light-mode) .modal-conteudo {
+    background: #ffffff;
+    border-color: var(--primaria);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--texto);
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: var(--transicao);
+}
+
+.modal-fechar:hover {
+    opacity: 1;
+    color: var(--primaria);
+}
+
+.modal-titulo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    color: var(--primaria);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(188, 148, 92, 0.2);
+    padding-bottom: 10px;
+}
+
+.modal-texto {
+    color: var(--texto);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+    padding-right: 10px;
+}
+
+/* Personalização da barra de rolagem do modal */
+.modal-texto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-texto::-webkit-scrollbar-thumb {
+    background: var(--primaria);
+    border-radius: 3px;
+}
+
+.modal-texto p {
+    margin-bottom: 15px;
+}
+
+.modal-texto ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-texto li {
+    margin-bottom: 10px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ==========================================================================
+   ANIMAÇÕES DE ENTRADA
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animated {
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+.scaleIn {
+    animation-name: scaleIn;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MOBILE-FIRST)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .card-acesso {
+        padding: 30px 20px 20px 20px;
+    }
+
+    .titulo-auth {
+        font-size: 1.5rem;
+    }
+
+    .modal-conteudo {
+        padding: 25px 20px;
+    }
 }

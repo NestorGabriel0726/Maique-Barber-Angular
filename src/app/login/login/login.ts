@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angu
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth.service'; 
 
 type TelaAtiva = 'login' | 'cadastro';
 type TipoModal = 'lgpd' | 'termos' | null;
@@ -60,12 +60,12 @@ export class Login implements OnInit {
 
   irParaCadastro() {
     this.estadoTela = 'cadastro';
-    this.limparFormularios();
+    this.limparFormularioCadastro();
   }
 
   irParaLogin() {
     this.estadoTela = 'login';
-    this.limparFormularios();
+    this.limparFormularioCadastro();
   }
 
   abrirModal(tipo: TipoModal) {
@@ -83,7 +83,7 @@ export class Login implements OnInit {
     }
     
     this.authService.fazerLogin();
-    alert(`Login efetuado com sucesso! Agora você pode realizar seus agendamentos.`);
+    alert(`Seja bem-vindo de volta! Login efetuado com sucesso.`);
     this.retornarAoSite();
   }
 
@@ -93,14 +93,19 @@ export class Login implements OnInit {
       return;
     }
 
-    alert('Conta criada com sucesso! Você será redirecionado para efetuar o login.');
+    if (!this.cadastroData.aceitouTermos) {
+      alert('Você precisa aceitar os termos e políticas para prosseguir.');
+      return;
+    }
+
+    alert('Conta criada com sucesso! Faça login para continuar.');
     this.loginData.usuario = this.cadastroData.email;
     this.irParaLogin();
   }
 
   loginGoogle() {
     this.authService.fazerLogin();
-    alert('Conectando à sua conta do Google...');
+    alert('Autenticação via Google realizada com sucesso!');
     this.retornarAoSite();
   }
 
@@ -108,7 +113,7 @@ export class Login implements OnInit {
     this.router.navigate(['/']);
   }
 
-  private limparFormularios() {
+  private limparFormularioCadastro() {
     this.cadastroData = {
       nome: '',
       email: '',

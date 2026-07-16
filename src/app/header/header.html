@@ -22,7 +22,8 @@
       <li>
         <button 
           [class]="estaLogado() ? 'nav-btn-agendar' : 'nav-btn-login'" 
-          (click)="aoClicarBotao(); fecharMenu()">
+          [routerLink]="estaLogado() ? '/agendamento' : '/login'"
+          (click)="fecharMenu()">
           
           <ng-container *ngIf="!estaLogado()">
             <i class="fa-solid fa-right-to-bracket"></i> Entrar / Cadastrar

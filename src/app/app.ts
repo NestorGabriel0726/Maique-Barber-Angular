@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 
-
+// Importação de componentes criados
 import { Header } from './header/header'; 
 import { Home } from './componentes/home/home';
 import { Servicos } from './componentes/servicos/servicos';
@@ -30,12 +30,12 @@ import { Footer } from './footer/footer';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App { // ou export class AppComponent
+export class App {
   
   constructor(private router: Router) {}
 
-  // Retorna true se o usuário estiver na tela de login
-  isTelaLogin(): boolean {
-    return this.router.url === '/login';
+  // se eu estiver no login ou no agendamento, some com o resto da landing page
+  isRotaAuxiliar(): boolean {
+    return this.router.url.includes('/login') || this.router.url.includes('/agendamento');
   }
 }

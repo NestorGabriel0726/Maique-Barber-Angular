@@ -1,25 +1,165 @@
-<main class="container-agenda">
-  <div class="topo-voltar">
-    <a routerLink="/" class="btn-voltar" title="Voltar para a Home">
-      <i class="fa-solid fa-arrow-left"></i> Voltar para o site
-    </a>
-  </div>
+<div class="agendamento-secao" [class.light-mode]="isLightMode">
+  
+  <!-- Controles Superiores -->
+  <header class="agendamento-header">
+    <button class="btn-retornar" (click)="retornarAoSite()">
+      <i class="fa-solid fa-arrow-left"></i> Voltar ao site
+    </button>
+    <button class="btn-theme-toggle" (click)="toggleTheme()">
+      <i class="fa-solid" [ngClass]="isLightMode ? 'fa-moon' : 'fa-sun'"></i>
+    </button>
+  </header>
 
-  <div class="cabecalho-agenda">
-    <h2><i class="fa-solid fa-calendar-check"></i> Escolha seu Horário</h2>
-    <p>Selecione a data para ver a disponibilidade atual.</p>
-    
-    <div class="seletor-data">
-      <label for="input-data"><i class="fa-regular fa-calendar"></i> Data do Agendamento:</label>
-      <input type="date" id="input-data" [(ngModel)]="dataSelecionada" required>
+  <main class="agendamento-container animated fadeIn">
+    <div class="grade-agendamento">
+      
+      <!-- COLUNA 1: FORMULÁRIO E CALENDÁRIO -->
+      <section class="card-painel" id="form-agendamento">
+        <h2 class="titulo-secao"><i class="fa-regular fa-calendar-plus"></i> Novo Agendamento</h2>
+        
+        <form (submit)="salvarAgendamento(); $event.preventDefault()">
+          <!-- Nome do Cliente (Auto-preenchido) -->
+          <div class="campo-grupo">
+            <label>Cliente</label>
+            <div class="input-desabilitado">
+              <i class="fa-regular fa-user"></i>
+              <span>{{ clienteNome }}</span>
+            </div>
+          </div>
+
+          <!-- Seleção de Serviço -->
+          <div class="campo-grupo">
+            <label for="servico">Serviço Desejado</label>
+            <select id="servico" (change)="aoSelecionarServicoId($event)" [value]="servicoSelecionado?.id || ''" required>
+              <option value="" disabled selected>Selecione um serviço...</option>
+              <option *ngFor="let s of servicos" [value]="s.id">
+                {{ s.nome }} - ({{ s.duracao }})
+              </option>
+            </select>
+          </div>
+
+          <!-- Exibição de Valor do Serviço Dinâmico -->
+          <div class="preco-painel" *ngIf="servicoSelecionado">
+            <span>Valor do serviço:</span>
+            <strong class="preco-valor">{{ servicoSelecionado.preco | currency:'BRL':'symbol':'1.2-2' }}</strong>
+          </div>
+
+          <!-- CALENDÁRIO CUSTOMIZADO -->
+          <div class="campo-grupo">
+            <label>Selecione o Dia</label>
+            <div class="calendario-custom">
+              <div class="calendario-header">
+                <button type="button" (click)="mudarMes(-1)">&lt;</button>
+                <span>{{ meses[mesExibido] }} {{ anoExibido }}</span>
+                <button type="button" (click)="mudarMes(1)">&gt;</button>
+              </div>
+              <div class="calendario-dias-semana">
+                <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+              </div>
+              <div class="calendario-grade">
+                <button 
+                  type="button" 
+                  *ngFor="let d of diasDoMes" 
+                  [class.outro-mes]="d.isOutroMes"
+                  [class.selecionado]="dataSelecionada === d.dataString"
+                  [class.passado]="d.isPassado"
+                  [disabled]="d.isPassado"
+                  (click)="selecionarData(d.dataString, d.isPassado)">
+                  {{ d.dia }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SELEÇÃO DE HORÁRIO -->
+          <div class="campo-grupo" *ngIf="dataSelecionada">
+            <label>Horários Disponíveis (para o dia {{ dataSelecionada | date:'dd/MM' }})</label>
+            <div class="grade-horarios">
+              <button 
+                type="button" 
+                *ngFor="let h of horariosPredefinidos"
+                [class.ocupado]="isHorarioOcupado(h)"
+                [class.ativo]="horarioSelecionado === h"
+                [disabled]="isHorarioOcupado(h)"
+                (click)="selecionarHorario(h)">
+                {{ h }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Botão Confirmar -->
+          <button 
+            type="submit" 
+            class="btn-confirmar-agendar" 
+            [disabled]="!servicoSelecionado || !dataSelecionada || !horarioSelecionado">
+            Confirmar e Reservar Horário
+          </button>
+        </form>
+      </section>
+
+      <!-- COLUNA 2: HISTÓRICO DE AGENDAMENTOS -->
+      <section class="card-painel">
+        <h2 class="titulo-secao"><i class="fa-solid fa-clock-rotate-left"></i> Meus Agendamentos</h2>
+        
+        <div class="historico-lista" *ngIf="historicoAgendamentos.length > 0; else semHistorico">
+          <div class="card-historico" *ngFor="let ag of historicoAgendamentos">
+            <div class="status-badge" [attr.data-status]="ag.status">
+              {{ ag.status }}
+            </div>
+            <div class="detalhes-historico">
+              <h3>{{ ag.servicoNome }}</h3>
+              <p><i class="fa-regular fa-calendar"></i> {{ ag.data | date:'dd/MM/yyyy' }} às {{ ag.horario }}</p>
+              <p class="valor-historico">Valor: {{ ag.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+            
+            <div class="acoes-historico">
+              <!-- Repetir serviço -->
+              <button class="btn-repetir" (click)="repetirServicoAnterior(ag)">
+                <i class="fa-solid fa-rotate-right"></i> Repetir serviço
+              </button>
+              
+              <!-- Cancelar se for pendente -->
+              <button class="btn-cancelar" *ngIf="ag.status === 'Pendente'" (click)="cancelarAgendamento(ag.id)">
+                Cancelar vaga
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #semHistorico>
+          <div class="sem-dados">
+            <i class="fa-regular fa-calendar-times"></i>
+            <p>Você ainda não possui nenhum agendamento realizado.</p>
+          </div>
+        </ng-template>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE SUCESSO -->
+  <div class="modal-overlay" *ngIf="mostrarModalConfirmacao" (click)="fecharModal()">
+    <div class="modal-conteudo animated scaleIn" (click)="$event.stopPropagation()">
+      <div class="sucesso-icone-wrapper">
+        <i class="fa-regular fa-circle-check"></i>
+      </div>
+      <h3 class="modal-titulo-sucesso">Agendamento Confirmado!</h3>
+      
+      <div class="modal-corpo-confirmacao">
+        <p>Olá <strong>{{ ultimoAgendamentoCriado?.clienteNome }}</strong>, sua vaga foi garantida com sucesso em nossa cadeira!</p>
+        <div class="resumo-dados">
+          <p><strong>Serviço:</strong> {{ ultimoAgendamentoCriado?.servicoNome }}</p>
+          <p><strong>Data:</strong> {{ ultimoAgendamentoCriado?.data | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Horário:</strong> às {{ ultimoAgendamentoCriado?.horario }}</p>
+          <p><strong>Valor:</strong> {{ ultimoAgendamentoCriado?.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+        </div>
+        <p class="aviso-modal">* Lembramos que cancelamentos devem ser feitos com no mínimo 2h de antecedência.</p>
+      </div>
+
+      <div class="modal-footer-sucesso">
+        <button class="btn-principal" (click)="fecharModal()">Ver na minha agenda</button>
+      </div>
     </div>
   </div>
 
-  <div id="grid-horarios" class="grid-horarios">
-    @for (horario of horariosDisponiveis; track horario) {
-      <button class="btn-horario" (click)="selecionarHorario(horario)">
-        {{ horario }}
-      </button>
-    }
-  </div>
-</main>
+</div>
