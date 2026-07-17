@@ -117,6 +117,27 @@ nav ul li a:hover {
     box-shadow: 0 0 15px rgba(188, 148, 92, 0.4);
 }
 
+/* BOTÃO DE LOGOUT (DESLOGAR) */
+.nav-btn-logout {
+    background: transparent;
+    color: #ff4d4d !important; /* Vermelho moderno e suave */
+    font-weight: bold;
+    padding: 9px 17px !important;
+    border-radius: 4px;
+    border: 1px solid #ff4d4d;
+    letter-spacing: 1px;
+    transition: var(--transicao);
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.nav-btn-logout:hover {
+    background-color: #ff4d4d !important;
+    color: var(--escura) !important;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+}
+
 .menu-toggle {
     display: none;
     background: none;
@@ -180,7 +201,8 @@ nav ul li a:hover {
         font-size: 1.4rem;
     }
 
-    .nav-btn-agendar, .nav-btn-login {
+    /* Modificado: Unificado para dar o mesmo comportamento responsivo ao botão de Logout */
+    .nav-btn-agendar, .nav-btn-login, .nav-btn-logout {
         display: inline-block;
         width: 80%;
         padding: 15px 0 !important;

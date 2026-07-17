@@ -49,6 +49,23 @@ export class Header {
     return this.authService.isLogado();
   }
 
+  // Executa o Logout e navega para a Home
+  logout() {
+    this.fecharMenu();
+    
+    
+    if (typeof this.authService.logout === 'function') {
+      this.authService.logout();
+    } else if (typeof this.authService.logout === 'function') {
+      this.authService.logout();
+    } else {
+      (this.authService as any).isLoggedIn = false; 
+    }
+
+    // Redireciona para a página de login novamente
+    this.router.navigate(['/login']);
+  }
+
   aoClicarBotao() {
     if (this.estaLogado()) {
       const elemento = document.getElementById('contato');

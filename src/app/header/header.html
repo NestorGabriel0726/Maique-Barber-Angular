@@ -35,6 +35,13 @@
         </button>
       </li>
 
+      <!-- Botão de Logout (Aparece apenas quando logado) -->
+      <li *ngIf="estaLogado()">
+        <button class="nav-btn-logout" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </button>
+      </li>
+
       <li>
         <button class="btn-theme-toggle" (click)="toggleTheme()" aria-label="Alternar tema">
           <i class="fa-solid" [ngClass]="isLightMode ? 'fa-sun' : 'fa-moon'"></i>

@@ -1,6 +1,6 @@
 <div class="agendamento-secao" [class.light-mode]="isLightMode">
   
-  <!-- Controles Superiores -->
+  <!-- Topo da página com os botões de voltar e mudar a cor da tela -->
   <header class="agendamento-header">
     <button class="btn-retornar" (click)="retornarAoSite()">
       <i class="fa-solid fa-arrow-left"></i> Voltar ao site
@@ -13,12 +13,13 @@
   <main class="agendamento-container animated fadeIn">
     <div class="grade-agendamento">
       
-      <!-- COLUNA 1: FORMULÁRIO E CALENDÁRIO -->
+      <!-- Lado esquerdo: Onde o cliente preenche os dados -->
       <section class="card-painel" id="form-agendamento">
         <h2 class="titulo-secao"><i class="fa-regular fa-calendar-plus"></i> Novo Agendamento</h2>
         
         <form (submit)="salvarAgendamento(); $event.preventDefault()">
-          <!-- Nome do Cliente (Auto-preenchido) -->
+          
+          <!-- Nome do cliente que já vem preenchido porque ele está logado -->
           <div class="campo-grupo">
             <label>Cliente</label>
             <div class="input-desabilitado">
@@ -27,10 +28,46 @@
             </div>
           </div>
 
-          <!-- Seleção de Serviço -->
+          <!-- Campo para o telefone do cliente -->
+          <div class="campo-grupo">
+            <label for="telefone">Telefone com DDD</label>
+            <div class="input-wrapper" style="position: relative;">
+              <input 
+                type="text" 
+                id="telefone" 
+                name="telefone"
+                class="input-ativo" 
+                placeholder="(11) 99999-9999"
+                [(ngModel)]="clienteTelefone"
+                (input)="formatarTelefone($event)"
+                required>
+            </div>
+          </div>
+
+          <!-- A caixinha de texto nova que criamos para o cliente escrever avisos -->
+          <div class="campo-grupo">
+            <label for="observacao">Observações (Opcional)</label>
+            <div class="input-wrapper">
+              <textarea 
+                id="observacao" 
+                name="observacao"
+                class="input-ativo" 
+                style="resize: vertical; min-height: 80px; padding: 10px;"
+                placeholder="Ex: O agendamento é para o meu filho João, corte infantil."
+                [(ngModel)]="clienteObservacao">
+              </textarea>
+            </div>
+          </div>
+
+          <!-- Caixinha de seleção para escolher o tipo de corte -->
           <div class="campo-grupo">
             <label for="servico">Serviço Desejado</label>
-            <select id="servico" (change)="aoSelecionarServicoId($event)" [value]="servicoSelecionado?.id || ''" required>
+            <select 
+              id="servico" 
+              name="servico" 
+              (change)="aoSelecionarServicoId($event)" 
+              [value]="servicoSelecionado?.id || ''" 
+              required>
               <option value="" disabled selected>Selecione um serviço...</option>
               <option *ngFor="let s of servicos" [value]="s.id">
                 {{ s.nome }} - ({{ s.duracao }})
@@ -38,13 +75,13 @@
             </select>
           </div>
 
-          <!-- Exibição de Valor do Serviço Dinâmico -->
+          <!-- Mostra o preço do corte só depois que o cliente escolhe um -->
           <div class="preco-painel" *ngIf="servicoSelecionado">
             <span>Valor do serviço:</span>
             <strong class="preco-valor">{{ servicoSelecionado.preco | currency:'BRL':'symbol':'1.2-2' }}</strong>
           </div>
 
-          <!-- CALENDÁRIO CUSTOMIZADO -->
+          <!-- O calendário para escolher o dia do corte -->
           <div class="campo-grupo">
             <label>Selecione o Dia</label>
             <div class="calendario-custom">
@@ -71,7 +108,7 @@
             </div>
           </div>
 
-          <!-- SELEÇÃO DE HORÁRIO -->
+          <!-- Os botões de horário que aparecem depois de clicar em um dia -->
           <div class="campo-grupo" *ngIf="dataSelecionada">
             <label>Horários Disponíveis (para o dia {{ dataSelecionada | date:'dd/MM' }})</label>
             <div class="grade-horarios">
@@ -87,17 +124,17 @@
             </div>
           </div>
 
-          <!-- Botão Confirmar -->
+          <!-- Botão de salvar que fica cinza e travado se faltar preencher algo -->
           <button 
             type="submit" 
             class="btn-confirmar-agendar" 
-            [disabled]="!servicoSelecionado || !dataSelecionada || !horarioSelecionado">
+            [disabled]="!servicoSelecionado || !dataSelecionada || !horarioSelecionado || !clienteTelefone || clienteTelefone.length < 15">
             Confirmar e Reservar Horário
           </button>
         </form>
       </section>
 
-      <!-- COLUNA 2: HISTÓRICO DE AGENDAMENTOS -->
+      <!-- Lado direito: Lista os agendamentos antigos que o cliente já fez -->
       <section class="card-painel">
         <h2 class="titulo-secao"><i class="fa-solid fa-clock-rotate-left"></i> Meus Agendamentos</h2>
         
@@ -109,16 +146,21 @@
             <div class="detalhes-historico">
               <h3>{{ ag.servicoNome }}</h3>
               <p><i class="fa-regular fa-calendar"></i> {{ ag.data | date:'dd/MM/yyyy' }} às {{ ag.horario }}</p>
+              <p *ngIf="ag.clienteTelefone"><i class="fa-solid fa-phone" style="font-size: 0.8rem;"></i> Contato: {{ ag.clienteTelefone }}</p>
+              
+              <!-- Se o cliente escreveu alguma observação nesse dia, ela aparece aqui embaixo -->
+              <p *ngIf="ag.observacao" style="font-style: italic; opacity: 0.85; margin-top: 4px;">
+                <i class="fa-regular fa-comment-dots"></i> Obs: "{{ ag.observacao }}"
+              </p>
+
               <p class="valor-historico">Valor: {{ ag.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
             </div>
             
             <div class="acoes-historico">
-              <!-- Repetir serviço -->
               <button class="btn-repetir" (click)="repetirServicoAnterior(ag)">
                 <i class="fa-solid fa-rotate-right"></i> Repetir serviço
               </button>
               
-              <!-- Cancelar se for pendente -->
               <button class="btn-cancelar" *ngIf="ag.status === 'Pendente'" (click)="cancelarAgendamento(ag.id)">
                 Cancelar vaga
               </button>
@@ -126,6 +168,7 @@
           </div>
         </div>
 
+        <!-- Mensagem fofa que aparece se a lista de históricos estiver vazia -->
         <ng-template #semHistorico>
           <div class="sem-dados">
             <i class="fa-regular fa-calendar-times"></i>
@@ -137,18 +180,23 @@
     </div>
   </main>
 
-  <!-- MODAL DE CONFIRMAÇÃO DE SUCESSO -->
+  <!-- Janelinha de sucesso que pula na tela quando o agendamento dá certo -->
   <div class="modal-overlay" *ngIf="mostrarModalConfirmacao" (click)="fecharModal()">
     <div class="modal-conteudo animated scaleIn" (click)="$event.stopPropagation()">
       <div class="sucesso-icone-wrapper">
         <i class="fa-regular fa-circle-check"></i>
       </div>
-      <h3 class="modal-titulo-sucesso">Agendamento Confirmado!</h3>
+      <h3 class="modal-titulo-sucesso">Agendamento Confirme!</h3>
       
       <div class="modal-corpo-confirmacao">
         <p>Olá <strong>{{ ultimoAgendamentoCriado?.clienteNome }}</strong>, sua vaga foi garantida com sucesso em nossa cadeira!</p>
         <div class="resumo-dados">
           <p><strong>Serviço:</strong> {{ ultimoAgendamentoCriado?.servicoNome }}</p>
+          <p><strong>Contato:</strong> {{ ultimoAgendamentoCriado?.clienteTelefone }}</p>
+          
+          <!-- Se tiver observação no agendamento atual, mostra no comprovante também -->
+          <p *ngIf="ultimoAgendamentoCriado?.observacao"><strong>Obs:</strong> {{ ultimoAgendamentoCriado?.observacao }}</p>
+          
           <p><strong>Data:</strong> {{ ultimoAgendamentoCriado?.data | date:'dd/MM/yyyy' }}</p>
           <p><strong>Horário:</strong> às {{ ultimoAgendamentoCriado?.horario }}</p>
           <p><strong>Valor:</strong> {{ ultimoAgendamentoCriado?.preco | currency:'BRL':'symbol':'1.2-2' }}</p>

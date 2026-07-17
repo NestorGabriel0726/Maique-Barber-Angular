@@ -19,13 +19,13 @@
 
       <form (ngSubmit)="executarLogin()" #loginForm="ngForm">
         <div class="campo-grupo">
-          <label for="usuario">Usuário ou E-mail</label>
+          <label for="usuario">E-mail de Acesso</label>
           <input 
-            type="text" 
+            type="email" 
             id="usuario" 
             name="usuario" 
             [(ngModel)]="loginData.usuario" 
-            placeholder="Digite seu usuário" 
+            placeholder="exemplo@email.com" 
             required>
         </div>
 
@@ -75,7 +75,7 @@
             id="cad-nome" 
             name="cad-nome" 
             [(ngModel)]="cadastroData.nome" 
-            placeholder="Seu nome" 
+            placeholder="Seu nome completo" 
             required>
         </div>
 
@@ -90,6 +90,21 @@
             required>
         </div>
 
+        <!-- Telefone / WhatsApp -->
+        <div class="campo-grupo">
+          <label for="cad-telefone">Telefone (DDD + Número)</label>
+          <input 
+            type="tel" 
+            id="cad-telefone" 
+            name="cad-telefone" 
+            [(ngModel)]="cadastroData.telefone" 
+            (input)="aplicarMascaraTelefone($event)"
+            placeholder="(11) 99999-9999" 
+            maxlength="15"
+            inputmode="tel"
+            required>
+        </div>
+
         <div class="campo-grupo">
           <label for="cad-senha">Senha</label>
           <input 
@@ -98,6 +113,7 @@
             name="cad-senha" 
             [(ngModel)]="cadastroData.senha" 
             placeholder="Mínimo 6 caracteres" 
+            minlength="6"
             required>
         </div>
 
@@ -126,7 +142,7 @@
           </label>
         </div>
 
-        <!-- Botão habilitado apenas quando os termos estiverem checados -->
+        <!-- Botão habilitado apenas quando o formulário for válido -->
         <button 
           type="submit" 
           class="btn-principal" 
@@ -171,7 +187,7 @@
       <h3 class="modal-titulo">Política de Proteção de Dados (LGPD)</h3>
       <div class="modal-texto">
         <p>Em conformidade com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/18)</strong>, declaramos que a Barbearia Maique Barber coleta e processa seus dados pessoais apenas para fins de agendamento de horários, envio de confirmações e segurança operacional de sua conta.</p>
-        <p>Seus dados cadastrados (nome, e-mail e dados de agendamento) são criptografados de ponta a ponta e jamais serão comercializados ou compartilhados com terceiros sem consentimento prévio por escrito.</p>
+        <p>Seus dados cadastrados (nome, e-mail, telefone e dados de agendamento) são criptografados de ponta a ponta e jamais serão comercializados ou compartilhados com terceiros sem consentimento prévio por escrito.</p>
         <p>A qualquer momento você tem o direito de solicitar a alteração, anonimização ou exclusão definitiva do seu cadastro da nossa base de dados ativa enviando uma solicitação ao suporte do nosso sistema.</p>
       </div>
     </div>

@@ -1,0 +1,604 @@
+/* ==========================================
+   VARIÁVEIS DE AMBIENTE (CORES E TRANSIÇÕES)
+   ========================================== */
+:root {
+  --bg-principal: #121214;
+  --bg-card: #1c1c1e;
+  --bg-input: #252529;
+  --texto-claro: #ffffff;
+  --texto-mutado: #a1a1aa;
+  --cor-borda: #2e2e33;
+  --primaria: #cca43b;
+  --primaria-hover: #b38f2e;
+  --pendente: #e1b12c;
+  --concluido: #4cd137;
+  --cancelado: #e84118;
+  --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Variáveis locais para os botões de ação (Modo Escuro Padrão) */
+  --btn-concluir-bg: var(--concluido);
+  --btn-concluir-border: #3cb829;
+  --btn-concluir-texto: #ffffff;
+  
+  --btn-cancelar-bg: var(--cancelado);
+  --btn-cancelar-border: #cf3711;
+  --btn-cancelar-texto: #ffffff;
+}
+
+/* Modo Claro */
+.dashboard-secao.light-mode {
+  --bg-principal: #f5f6fa;
+  --bg-card: #ffffff;
+  --bg-input: #f1f2f6;
+  --texto-claro: #2f3640;
+  --texto-mutado: #718093;
+  --cor-borda: #e8eaed;
+
+  /* Cores adaptadas para os botões de ação no Modo Claro */
+  --btn-concluir-bg: #d4f8d3; /* Fundo verde bem suave */
+  --btn-concluir-border: #a3e8a1; /* Borda verde suave */
+  --btn-concluir-texto: #1e5c1b; /* Fonte escura (tom de verde bem escuro/preto) */
+
+  --btn-cancelar-bg: #ffe3df; /* Fundo vermelho bem suave */
+  --btn-cancelar-border: #f8b9b0; /* Borda vermelha suave */
+  --btn-cancelar-texto: #7a1f11; /* Fonte escura (tom de vermelho bem escuro/preto) */
+}
+
+/* Base da Seção */
+.dashboard-secao {
+  min-height: 100vh;
+  background-color: var(--bg-principal);
+  color: var(--texto-claro);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 30px 20px;
+  transition: var(--transicao);
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   CABECALHO DO PAINEL (HEADER)
+   ========================================== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.boas-vindas h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0 0 6px 0;
+}
+
+.boas-vindas p {
+  color: var(--texto-mutado);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.boas-vindas strong {
+  color: var(--primaria);
+  font-weight: 600;
+}
+
+.acoes-topo {
+  display: flex;
+  gap: 12px;
+}
+
+/* Botões Superiores */
+.btn-theme-toggle, .btn-logout {
+  background: var(--bg-card);
+  border: 1px solid var(--cor-borda);
+  color: var(--texto-claro);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transicao);
+}
+
+.btn-theme-toggle:hover, .btn-logout:hover {
+  border-color: var(--primaria);
+  background: var(--bg-input);
+  color: var(--texto-claro);
+}
+
+.btn-logout i {
+  color: inherit;
+}
+
+.btn-logout:hover {
+  border-color: var(--cancelado);
+  color: var(--cancelado);
+}
+
+/* ==========================================
+   PAINEL DE FILTROS
+   ========================================== */
+.filtro-painel {
+  background: var(--bg-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 18px 24px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.campo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.campo-filtro label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-mutado);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-data-dashboard {
+  background: var(--bg-input);
+  border: 1px solid var(--cor-borda);
+  color: var(--texto-claro);
+  padding: 10px 14px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: var(--transicao);
+}
+
+.input-data-dashboard:focus {
+  border-color: var(--primaria);
+}
+
+/* ==========================================
+   CARTÕES DE MÉTRICAS (GRID)
+   ========================================== */
+.grade-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.card-metrica {
+  background: var(--bg-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: var(--transicao);
+}
+
+.card-metrica:hover {
+  transform: translateY(-2px);
+  border-color: var(--primaria);
+}
+
+.metrica-icone {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.faturamento .metrica-icone {
+  background: rgba(204, 164, 59, 0.1);
+  color: var(--primaria);
+}
+
+.pendentes .metrica-icone {
+  background: rgba(225, 177, 44, 0.1);
+  color: var(--pendente);
+}
+
+.concluidos .metrica-icone {
+  background: rgba(76, 209, 55, 0.1);
+  color: var(--concluido);
+}
+
+.metrica-info span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-mutado);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.metrica-info h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ==========================================
+   PAINEL DA TABELA DE CLIENTES (CORRIGIDO)
+   ========================================== */
+.tabela-painel {
+  background: var(--bg-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabela-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tabela-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--primaria);
+}
+
+.total-badge {
+  background: var(--bg-principal);
+  border: 1px solid var(--cor-borda);
+  color: var(--texto-claro);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tabela-responsiva {
+  width: 100%;
+}
+
+.dashboard-tabela {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  text-align: left;
+}
+
+.dashboard-tabela th {
+  color: var(--texto-mutado);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.dashboard-tabela td {
+  padding: 16px;
+  background-color: var(--bg-principal);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.dashboard-tabela tbody tr td:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.dashboard-tabela tbody tr td:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.linha-cancelada td {
+  opacity: 0.4;
+}
+
+.col-hora {
+  color: var(--primaria);
+  font-size: 1.1rem !important;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cliente-info-celula {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 280px;
+}
+
+.nome-cliente {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.badge-obs {
+  font-size: 0.8rem;
+  color: var(--pendente);
+  background: rgba(225, 177, 44, 0.08);
+  border: 1px solid rgba(225, 177, 44, 0.2);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.3;
+}
+
+.badge-obs i {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.servico-tag {
+  background: var(--bg-input);
+  border: 1px solid var(--cor-borda);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pilula {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-pilula[data-status="Pendente"] {
+  background-color: rgba(225, 177, 44, 0.12);
+  color: var(--pendente);
+}
+
+.status-pilula[data-status="Concluído"] {
+  background-color: rgba(76, 209, 55, 0.12);
+  color: var(--concluido);
+}
+
+.status-pilula[data-status="Cancelado"] {
+  background-color: rgba(232, 65, 24, 0.12);
+  color: var(--cancelado);
+}
+
+.col-acoes {
+  width: auto;
+}
+
+.grupo-botoes {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+/* ==========================================
+   BOTÕES DE AÇÃO INTERNOS DA TABELA (AJUSTADOS)
+   ========================================== */
+.btn-acao {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transicao);
+}
+
+/* Botão Concluir */
+.btn-acao.concluir {
+  background-color: var(--btn-concluir-bg);
+  border: 1px solid var(--btn-concluir-border);
+  color: var(--btn-concluir-texto);
+}
+
+.btn-acao.concluir i {
+  color: inherit;
+}
+
+.btn-acao.concluir:hover {
+  filter: brightness(0.9);
+  box-shadow: 0 4px 10px rgba(76, 209, 55, 0.15);
+}
+
+/* Botão Cancelar */
+.btn-acao.cancelar {
+  background-color: var(--btn-cancelar-bg);
+  border: 1px solid var(--btn-cancelar-border);
+  color: var(--btn-cancelar-texto);
+}
+
+.btn-acao.cancelar i {
+  color: inherit;
+}
+
+.btn-acao.cancelar:hover {
+  filter: brightness(0.9);
+  box-shadow: 0 4px 10px rgba(232, 65, 24, 0.15);
+}
+
+.texto-finalizado {
+  color: var(--texto-mutado);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Sem dados */
+.sem-dados-dashboard {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--texto-mutado);
+}
+
+.sem-dados-dashboard i {
+  font-size: 3.5rem;
+  color: var(--cor-borda);
+  margin-bottom: 20px;
+}
+
+.sem-dados-dashboard p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* ==========================================
+   RESPONSIVIDADE EXTREMA (MOBILE-FIRST)
+   ========================================== */
+@media (max-width: 992px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .acoes-topo {
+    justify-content: center;
+  }
+
+  .filtro-painel {
+    justify-content: center;
+  }
+
+  .campo-filtro {
+    max-width: 100%;
+  }
+
+  .tabela-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-secao {
+    padding: 15px 10px;
+  }
+
+  .tabela-painel {
+    padding: 15px;
+  }
+
+  .dashboard-tabela, 
+  .dashboard-tabela thead, 
+  .dashboard-tabela tbody, 
+  .dashboard-tabela th, 
+  .dashboard-tabela td, 
+  .dashboard-tabela tr { 
+    display: block; 
+    width: 100%;
+  }
+
+  .dashboard-tabela thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .dashboard-tabela tr {
+    background: var(--bg-principal);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+
+  .dashboard-tabela tbody tr td:first-child,
+  .dashboard-tabela tbody tr td:last-child {
+    border-radius: 0;
+  }
+
+  .dashboard-tabela td { 
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  }
+
+  .dashboard-secao.light-mode .dashboard-tabela td {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+  }
+
+  .dashboard-tabela td:last-child {
+    border-bottom: none;
+    padding-top: 15px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .dashboard-tabela td::before { 
+    content: attr(data-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--texto-mutado);
+  }
+
+  .col-hora {
+    justify-content: space-between !important;
+  }
+
+  .cliente-info-celula {
+    max-width: 100%;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .badge-obs {
+    margin-top: 5px;
+    text-align: left;
+  }
+
+  .grupo-botoes {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .btn-acao {
+    flex: 1;
+    justify-content: center;
+    padding: 12px;
+  }
+}

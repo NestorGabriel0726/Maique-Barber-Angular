@@ -129,6 +129,25 @@
     gap: 12px;
 }
 
+/* Estilização para o novo campo de entrada ativo (Telefone) */
+.input-ativo {
+    width: 100%;
+    background-color: var(--input-fundo);
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    padding: 14px 16px;
+    color: var(--texto);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.input-ativo:focus {
+    border-color: var(--primaria);
+    box-shadow: 0 0 0 2px rgba(188, 148, 92, 0.15);
+}
+
 select {
     width: 100%;
     background-color: var(--input-fundo);
@@ -315,7 +334,6 @@ select:focus {
     border-radius: 8px;
     padding: 20px;
     position: relative;
-    /* adicionei flexbox para os itens internos ficarem mais organizados */
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -357,7 +375,6 @@ select:focus {
 .detalhes-historico h3 {
     font-size: 1.1rem;
     margin-bottom: 6px;
-    /* dei um espaço na direita para o título nunca atropelar o badge do status */
     padding-right: 85px;
     line-height: 1.3;
 }
@@ -376,7 +393,6 @@ select:focus {
 .acoes-historico {
     margin-top: 15px;
     display: flex;
-    /* no celular os botões se ajustam melhor desse jeito */
     flex-wrap: wrap;
     gap: 10px;
 }

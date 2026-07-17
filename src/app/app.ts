@@ -36,6 +36,6 @@ export class App {
 
   // se eu estiver no login ou no agendamento, some com o resto da landing page
   isRotaAuxiliar(): boolean {
-    return this.router.url.includes('/login') || this.router.url.includes('/agendamento');
+    return this.router.url.includes('/login') || this.router.url.includes('/agendamento') || this.router.url.includes('/dashboard');
   }
 }

@@ -1,0 +1,141 @@
+<div class="dashboard-secao" [class.light-mode]="isLightMode">
+  
+  <!-- BARRA SUPERIOR -->
+  <header class="dashboard-header">
+    <div class="boas-vindas">
+      <h1>Painel do Barbeiro</h1>
+      <p>Bem-vindo de volta, <strong>{{ barbeiroNome }}</strong></p>
+    </div>
+    <div class="acoes-topo">
+      <button class="btn-theme-toggle" (click)="toggleTheme()">
+        <i class="fa-solid" [ngClass]="isLightMode ? 'fa-moon' : 'fa-sun'"></i>
+      </button>
+      <button class="btn-logout" (click)="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Sair
+      </button>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    
+    <!-- CONTROLES DE FILTRO -->
+    <section class="filtro-painel">
+      <div class="campo-filtro">
+        <label for="filtro-data"><i class="fa-solid fa-filter"></i> Filtrar Agenda por Dia:</label>
+        <input 
+          type="date" 
+          id="filtro-data" 
+          [(ngModel)]="dataFiltro" 
+          (change)="filtrarECalcularMetricas()" 
+          class="input-data-dashboard">
+      </div>
+    </section>
+
+    <!-- CARTOES DE MÉTRICAS -->
+    <section class="grade-metricas">
+      <div class="card-metrica faturamento">
+        <div class="metrica-icone"><i class="fa-solid fa-cash-register"></i></div>
+        <div class="metrica-info">
+          <span>Faturamento (Hoje)</span>
+          <h2>{{ faturamentoTotal | currency:'BRL':'symbol':'1.2-2' }}</h2>
+        </div>
+      </div>
+
+      <div class="card-metrica pendentes">
+        <div class="metrica-icone"><i class="fa-regular fa-clock"></i></div>
+        <div class="metrica-info">
+          <span>Cortes Pendentes</span>
+          <h2>{{ cortesPendentes }}</h2>
+        </div>
+      </div>
+
+      <div class="card-metrica concluidos">
+        <div class="metrica-icone"><i class="fa-regular fa-circle-check"></i></div>
+        <div class="metrica-info">
+          <span>Cortes Concluídos</span>
+          <h2>{{ cortesConcluidos }}</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABELA DE HORÁRIOS DO DIA -->
+    <section class="tabela-painel">
+      <div class="tabela-header">
+        <h2><i class="fa-regular fa-calendar-days"></i> Clientes Agendados para {{ dataFiltro | date:'dd/MM/yyyy' }}</h2>
+        <span class="total-badge">{{ agendamentosFiltrados.length }} atendimento(s)</span>
+      </div>
+
+      <div class="tabela-responsiva" *ngIf="agendamentosFiltrados.length > 0; else semAgenda">
+        <table class="dashboard-tabela">
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Cliente</th>
+              <th>Contato</th>
+              <th>Serviço</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th style="text-align: center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ag of agendamentosFiltrados" [class.linha-cancelada]="ag.status === 'Cancelado'">
+              <!-- Horário -->
+              <td class="col-hora"><strong>{{ ag.horario }}</strong></td>
+              
+              <!-- Cliente + Observações -->
+              <td>
+                <div class="cliente-info-celula">
+                  <span class="nome-cliente">{{ ag.clienteNome }}</span>
+                  <!-- Alerta de observação se houver -->
+                  <div *ngIf="ag.observacao" class="badge-obs" [title]="ag.observacao">
+                    <i class="fa-solid fa-circle-exclamation"></i> Obs: "{{ ag.observacao }}"
+                  </div>
+                </div>
+              </td>
+              
+              <!-- Contato -->
+              <td>{{ ag.clienteTelefone }}</td>
+              
+              <!-- Serviço -->
+              <td><span class="servico-tag">{{ ag.servicoNome }}</span></td>
+              
+              <!-- Valor -->
+              <td>{{ ag.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
+              
+              <!-- Status -->
+              <td>
+                <span class="status-pilula" [attr.data-status]="ag.status">
+                  {{ ag.status }}
+                </span>
+              </td>
+              
+              <!-- Botões de Ação -->
+              <td class="col-acoes">
+                <div class="grupo-botoes" *ngIf="ag.status === 'Pendente'; else acaoBloqueada">
+                  <button class="btn-acao concluir" (click)="atualizarStatus(ag.id, 'Concluído')" title="Concluir Atendimento">
+                    <i class="fa-solid fa-check"></i> Concluir
+                  </button>
+                  <button class="btn-acao cancelar" (click)="atualizarStatus(ag.id, 'Cancelado')" title="Cancelar Horário">
+                    <i class="fa-solid fa-xmark"></i> Cancelar
+                  </button>
+                </div>
+                <ng-template #acaoBloqueada>
+                  <span class="texto-finalizado">-</span>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #semAgenda>
+        <div class="sem-dados-dashboard">
+          <i class="fa-solid fa-calendar-minus"></i>
+          <p>Nenhum cliente agendado para esta data até o momento.</p>
+        </div>
+      </ng-template>
+    </section>
+
+  </main>
+</div>

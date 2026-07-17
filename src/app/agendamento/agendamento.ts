@@ -14,6 +14,8 @@ interface Servico {
 interface Agendamento {
   id: number;
   clienteNome: string;
+  clienteTelefone: string; 
+  observacao?: string; // Propriedade opcional de observação adicionada
   servicoNome: string;
   preco: number;
   data: string; 
@@ -32,7 +34,6 @@ export class AgendamentoComponent implements OnInit {
   isLightMode = false;
   mostrarModalConfirmacao = false;
 
-  // Sincronizei os servicos com a landing page pra bater certinho os valores e nomes!
   servicos: Servico[] = [
     { id: 1, nome: 'Corte Classic', preco: 25.00, duracao: '30 min' },
     { id: 2, nome: 'Corte Navalhado', preco: 30.00, duracao: '40 min' },
@@ -42,7 +43,9 @@ export class AgendamentoComponent implements OnInit {
     { id: 6, nome: 'Platinado', preco: 70.00, duracao: '120 min' }
   ];
 
-  clienteNome = 'Gabriel Santos'; 
+  clienteNome = ''; 
+  clienteTelefone = ''; 
+  clienteObservacao = ''; // Nova propriedade vinculada ao formulário HTML
   servicoSelecionado: Servico | null = null;
   dataSelecionada: string = ''; 
   horarioSelecionado: string = '';
@@ -68,9 +71,20 @@ export class AgendamentoComponent implements OnInit {
 
   ngOnInit() {
     this.verificarTemaAtual();
+    this.carregarDadosUsuario();
     this.carregarHorariosOcupados();
     this.carregarHistorico();
     this.gerarCalendario();
+  }
+
+  carregarDadosUsuario() {
+    const usuario = this.authService.getUsuarioLogado();
+    if (usuario) {
+      this.clienteNome = usuario.nome;
+      this.clienteTelefone = usuario.telefone || '';
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   verificarTemaAtual() {
@@ -85,6 +99,25 @@ export class AgendamentoComponent implements OnInit {
       document.body.classList.toggle('light-mode', this.isLightMode);
     }
     this.cdr.detectChanges();
+  }
+
+  formatarTelefone(event: any) {
+    let valor = event.target.value.replace(/\D/g, ''); 
+    
+    if (valor.length > 11) {
+      valor = valor.substring(0, 11); 
+    }
+
+    if (valor.length > 6) {
+      valor = `(${valor.substring(0, 2)}) ${valor.substring(2, 7)}-${valor.substring(7)}`;
+    } else if (valor.length > 2) {
+      valor = `(${valor.substring(0, 2)}) ${valor.substring(2)}`;
+    } else if (valor.length > 0) {
+      valor = `(${valor}`;
+    }
+
+    this.clienteTelefone = valor;
+    event.target.value = valor;
   }
 
   carregarHorariosOcupados() {
@@ -108,10 +141,9 @@ export class AgendamentoComponent implements OnInit {
       if (historicoSalvo) {
         this.historicoAgendamentos = JSON.parse(historicoSalvo);
       } else {
-        // usei o Combo Maique Barber no historico de teste pra combinar com a lista nova
         this.historicoAgendamentos = [
-          { id: 101, clienteNome: this.clienteNome, servicoNome: 'Combo Maique Barber', preco: 35.00, data: '2026-07-10', horario: '14:00', status: 'Concluído' },
-          { id: 102, clienteNome: this.clienteNome, servicoNome: 'Corte Classic', preco: 25.00, data: '2026-07-10', horario: '14:30', status: 'Concluído' }
+          { id: 101, clienteNome: this.clienteNome, clienteTelefone: '(11) 98765-4321', servicoNome: 'Combo Maique Barber', preco: 35.00, data: '2026-07-10', horario: '14:00', status: 'Concluído', observacao: 'Corte pro meu afilhado' },
+          { id: 102, clienteNome: this.clienteNome, clienteTelefone: '(11) 98765-4321', servicoNome: 'Corte Classic', preco: 25.00, data: '2026-07-10', horario: '14:30', status: 'Concluído' }
         ];
         localStorage.setItem('maique_barber_historico', JSON.stringify(this.historicoAgendamentos));
       }
@@ -175,6 +207,11 @@ export class AgendamentoComponent implements OnInit {
   }
 
   salvarAgendamento() {
+    if (!this.clienteTelefone || this.clienteTelefone.length < 15) {
+      alert('Por favor, informe um número de telefone com DDD válido.');
+      return;
+    }
+
     if (!this.servicoSelecionado || !this.dataSelecionada || !this.horarioSelecionado) {
       alert('Preencha todos os campos do agendamento.');
       return;
@@ -183,6 +220,8 @@ export class AgendamentoComponent implements OnInit {
     const novoAgendamento: Agendamento = {
       id: Date.now(),
       clienteNome: this.clienteNome,
+      clienteTelefone: this.clienteTelefone, 
+      observacao: this.clienteObservacao.trim() ? this.clienteObservacao.trim() : undefined, // Grava se houver texto
       servicoNome: this.servicoSelecionado.nome,
       preco: this.servicoSelecionado.preco,
       data: this.dataSelecionada,
@@ -202,9 +241,13 @@ export class AgendamentoComponent implements OnInit {
     this.ultimoAgendamentoCriado = novoAgendamento;
     this.mostrarModalConfirmacao = true;
 
+    // Reseta o formulário limpando também a observação antiga
+    const telefoneMantido = this.clienteTelefone;
     this.servicoSelecionado = null;
     this.dataSelecionada = '';
     this.horarioSelecionado = '';
+    this.clienteObservacao = ''; 
+    this.clienteTelefone = telefoneMantido;
   }
 
   cancelarAgendamento(id: number) {
@@ -229,6 +272,8 @@ export class AgendamentoComponent implements OnInit {
       this.servicoSelecionado = servicoCorrespondente;
       this.dataSelecionada = ''; 
       this.horarioSelecionado = '';
+      this.clienteTelefone = agendamento.clienteTelefone || ''; 
+      this.clienteObservacao = agendamento.observacao || ''; // Resgata a observação antiga também caso queira repetir
       
       document.getElementById('form-agendamento')?.scrollIntoView({ behavior: 'smooth' });
     }
